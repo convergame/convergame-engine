@@ -13,10 +13,10 @@ convergame.include(getPath()+'inc/classes/player.js');
 convergame.include(getPath()+'inc/classes/bullet.js');
 convergame.include(getPath()+'inc/classes/comet.js');
 var playerHit = false, backgroundShake = false, musPause = false, playerWidth, playerHeight, cometWidth, cometHeight, cometRotate = 0, canFire = true, points = 0, sndHurt, sndComet, sndBullet, musBackground;
-sndBullet = new Audio("/assets/games/0/snd/sndBullet.wav");
-sndComet = new Audio("/assets/games/0/snd/sndComet.wav");
-sndHurt = new Audio("/assets/games/0/snd/sndShip.wav");
-musBackground = new Audio("/assets/games/0/snd/bg.mp3");
+sndBullet = new Audio(getPath()+"snd/sndBullet.wav");
+sndComet = new Audio(getPath()+"snd/sndComet.wav");
+sndHurt = new Audio(getPath()+"snd/sndShip.wav");
+musBackground = new Audio(getPath()+"snd/bg.mp3");
 
 // Background image
 var bgReady = false;
@@ -24,11 +24,11 @@ var bgImage = new Image();
 bgImage.onload = function () {
   bgReady = true;
 };
-bgImage.src = "/assets/games/0/images/bg.png";
+bgImage.src = getPath()+"images/bg.png";
 
 
 var playerReady = false, playerImage = new Image();
-playerImage.src = "/assets/games/0/images/ship0.png";
+playerImage.src = getPath()+"images/ship0.png";
 playerImage.onload = function () {
   playerReady = true;
   playerWidth = (playerImage.width / 2) * convergame.getScreenScale();
@@ -38,7 +38,7 @@ playerImage.onload = function () {
 // comet image
 var cometReady = false;
 var cometImage = new Image();
-cometImage.src = "/assets/games/0/images/comet.png";
+cometImage.src = getPath()+"images/comet.png";
 cometImage.onload = function () {
   cometReady = true;
   cometWidth = (cometImage.width * 2) * convergame.getScreenScale();
@@ -49,7 +49,7 @@ cometImage.onload = function () {
 // bullet image
 var bulletReady = false;
 var bulletImage = new Image();
-bulletImage.src = "/assets/games/0/images/bullet.png";
+bulletImage.src = getPath()+"images/bullet.png";
 bulletImage.onload = function () {
   bulletReady = true;
   bulletWidth = (bulletImage.width / 2) * convergame.getScreenScale();

@@ -2,15 +2,33 @@
 <html>
 <head>
 	<title>Convergame Demo</title>
+	<style>
+	body {
+		background: #F0F; /*DEBUG: If this colour is visable then monitor is not at a 16:9 ratio*/
+	}
+	.game-wrapper {
+			position: relative;
+			padding-bottom: 56.25%;
+			height: 0;
+		}
+		.game-wrapper #game {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
 </head>
-<body>
-	<canvas id="game">
-                <p>
-                  Error: Your internet browser doesn't support Convergame. Please download a modern browser such as <a href="http://firefox.com">Mozilla FireFox</a> or <a href="http://google.com/chrome">Google Chrome</a>.
-                </p>
-              </canvas>
-                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
+<body id="body">
+	<div id="game-wrapper" class="game-wrapper">
+		<canvas id="game">
+			<p>
+				Error: Your internet browser doesn't support the game. Please download a modern browser such as <a href="http://firefox.com">Mozilla FireFox</a> or <a href="http://google.com/chrome">Google Chrome</a>.
+			</p>
+		</canvas>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="convergame.js"></script>
 	<script src="webfonts.js"></script>
 	<script src="game.js"></script>

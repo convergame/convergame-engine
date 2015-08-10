@@ -17,6 +17,8 @@ function Convergame() {
   this.init = function() {
     this.setCanvasWidth();
     this.setCanvasHeight();
+    document.getElementById('body').style.padding = '0';
+    document.getElementById('body').style.margin = '0';
     //this.include('/js/webfonts.js');
     //this.include('/js/convergame-touch.js');
   }
