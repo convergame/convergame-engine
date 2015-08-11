@@ -95,6 +95,7 @@ function Convergame() {
         $("#gamepadDisplay").html(html);
     }
 
+
     this.fetchGamepad = function() {
 
         if(canGamepads()) {
@@ -133,29 +134,18 @@ function Convergame() {
          return axes;
 
     }
-  /*this.hasCollided = function() {
-    if() {
-      return true;
-    } else {
-      return false;
-    }
-  }*/
+  
+  this.loadScene = function(url, element) {
 
-  /*
-  this.controls.isMouse = function() {
-    if() {
-      return true;
-    } else {
-      return false;
+    console.log('Element: ' + element);
+      element = typeof element !== 'undefined' ?  element : 'game';
+      element = document.getElementById(""+element+"");
+      console.log('Element: ' + element);
+      req = new XMLHttpRequest();
+      req.open("GET", url, true);
+      req.send(null);
+      element.innerHTML = req.responseText; 
     }
-  }
-  this.controls.isTouch = function() {
-    if() {
-      return true;
-    } else {
-      return false;
-    }
-  }*/
 
   this.include = function(dir) {
     var include = document.createElement('script');
@@ -175,10 +165,6 @@ function Convergame() {
     ctx.restore();
   }
 
-  this.isKeyboard = function() {
-      console.log('True!');
-      return true;
-  }
 
   /*Virtual Controls*/
   this.vkUp = function() {

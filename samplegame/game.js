@@ -78,6 +78,7 @@ function spawnComet(num) {
 
 // Init the game
 var init = function () {
+  convergame.loadScene('scenes/test.html');
   player = new Player(canvas.width / 4, canvas.height / 2, playerImage, playerWidth, playerHeight, 256);
   musBackground.play();
   musBackground.loop = true;
