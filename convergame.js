@@ -103,16 +103,14 @@ function Convergame() {
             var prompt = "To begin using your gamepad, connect it and press any button!";
             console.log(prompt);
 
-            $(window).on("gamepadconnected", function() {
+            window.addEventListener("gamepadconnected", function(e) {
                 hasGP = true;
                 console.log("Gamepad connected!");
-                //console.log("connection event");
                 repGP = window.setInterval(reportOnGamepad,100);
             });
 
-            $(window).on("gamepaddisconnected", function() {
+            window.addEventListener("gamepaddisconnected", function(e) {
                 console.log("Gamepad disconnected!");
-                $("#gamepadPrompt").text(prompt);
                 window.clearInterval(repGP);
             });
 
@@ -120,7 +118,12 @@ function Convergame() {
             var checkGP = window.setInterval(function() {
                 console.log('checkGP');
                 if(navigator.getGamepads()[0]) {
-                    if(!hasGP) $(window).trigger("gamepadconnected");
+                    if(!hasGP) {
+                      //$(window).trigger("gamepadconnected");
+                      var event = document.createEvent('HTMLEvents');
+                      event.initEvent('gamepadconnected', true, false);
+                      el.dispatchEvent(event);
+                    }
                     window.clearInterval(checkGP);
                 }
             }, 500);
