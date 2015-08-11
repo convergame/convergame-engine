@@ -1,6 +1,56 @@
 var Convergame = Convergame || {}, canvas = document.getElementById("game"), ctx = canvas.getContext("2d"), convergame = new Convergame();
 function Convergame() {
+    
   var screenScale, hasGP = false, repGP, axes;
+
+  this.updateFunction = null;
+  this.renderFunction = null;
+  this.then = null;
+
+  this.sanityCheck = function(){
+      
+      if (typeof this.updateFunction != 'function') {
+          console.log('You must set an update function using the convergame.setUpdateFunction method.');
+          return false;
+      }
+      
+      if (typeof this.renderFunction != 'function') {
+          console.log('You must set an render function using the convergame.setRemderFunction method.');
+          return false;
+      }
+      
+      return true;
+  };
+
+  this.setUpdateFunction = function(updateFunction){
+      this.updateFunction = updateFunction;
+  };
+
+  this.setRenderFunction = function(renderFunction){
+      this.renderFunction = renderFunction;
+  };
+  
+  this.mainGameLoop = function(){
+      var now = Date.now();
+      var delta = now - this.then;
+      var time = delta / 1000;
+      
+      this.updateFunction(time);
+      this.renderFunction();
+    
+      this.then = now;
+    
+      // Request to do this again ASAP
+      requestAnimationFrame(this.mainGameLoop.bind(this));
+  };
+  
+  this.startMainGameLoop = function(){
+      
+      if (!this.sanityCheck()) return;
+      
+      this.then = Date.now();
+      this.mainGameLoop();
+  };
 
   this.getCanvasWidth = function(){
     return canvas.width;

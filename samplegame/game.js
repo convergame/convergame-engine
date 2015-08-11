@@ -258,27 +258,12 @@ var render = function () {
   }
 };
 
-// The main game loop
-var main = function () {
-  var now = Date.now();
-  var delta = now - then;
-  var time = delta / 1000;
-  update(time);
-  render();
-
-  then = now;
-
-  // Request to do this again ASAP
-  requestAnimationFrame(main);
-};
-
 // Cross-browser support for requestAnimationFrame
 requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.mozRequestAnimationFrame;
 
-// Let's play this game!
-var then = Date.now();
-
 window.onload = function() {
   init();
-  main();
-}
+  convergame.setUpdateFunction(update);
+  convergame.setRenderFunction(render);
+  convergame.startMainGameLoop();
+};
