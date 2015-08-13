@@ -1,6 +1,11 @@
-var Convergame = Convergame || {}, canvas = document.getElementById("game"), ctx = canvas.getContext("2d"), convergame = new Convergame();
-function Convergame() {
-    
+
+var canvas = document.getElementById("game");
+
+function Convergame(canvas, initialScene) {
+
+  this.canvas = canvas;
+  this.ctx = this.canvas.getContext("2d");
+
   var screenScale, hasGP = false, repGP, axes;
 
   this.updateFunction = null;
