@@ -1,47 +1,34 @@
 
 var canvas = document.getElementById("game");
 
-function Convergame(canvas, initialScene) {
+function Convergame(canvas) {
 
   this.canvas = canvas;
   this.ctx = this.canvas.getContext("2d");
 
   var screenScale, hasGP = false, repGP, axes;
 
-  this.updateFunction = null;
-  this.renderFunction = null;
-  this.then = null;
+  this.scene = null;
 
+  this.then = null;
+  
   this.sanityCheck = function(){
       
-      if (typeof this.updateFunction != 'function') {
-          console.log('You must set an update function using the convergame.setUpdateFunction method.');
-          return false;
-      }
-      
-      if (typeof this.renderFunction != 'function') {
-          console.log('You must set an render function using the convergame.setRenderFunction method.');
+      if (typeof this.scene != 'object') {
+          console.log('You must set a scene using the convergame.changeScene method.');
           return false;
       }
       
       return true;
   };
 
-  this.setUpdateFunction = function(updateFunction){
-      this.updateFunction = updateFunction;
-  };
-
-  this.setRenderFunction = function(renderFunction){
-      this.renderFunction = renderFunction;
-  };
-  
   this.mainGameLoop = function(){
       var now = Date.now();
       var delta = now - this.then;
       var time = delta / 1000;
       
-      this.updateFunction(time);
-      this.renderFunction();
+      this.scene.updateFunction(time);
+      this.scene.renderFunction();
     
       this.then = now;
     
@@ -193,21 +180,11 @@ function Convergame(canvas, initialScene) {
 
     }
   
-  this.loadScene = function(url, element) {
-
-    console.log('Element: ' + element);
-      element = typeof element !== 'undefined' ?  element : 'game';
-      element = document.getElementById(""+element+"");
-      console.log('Element: ' + element);
-      req = new XMLHttpRequest();
-      req.open("GET", url, true);
-      req.send(null);
-      element.innerHTML = req.responseText; 
-    }
-    
-    this.loadSceneObject = function(scene) {
+    this.changeScene = function(scene) {
         
-        scene.start();
+        this.scene = scene;
+        
+        this.scene.init(this);
         
     };
 
