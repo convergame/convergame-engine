@@ -15,7 +15,7 @@ function Convergame() {
       }
       
       if (typeof this.renderFunction != 'function') {
-          console.log('You must set an render function using the convergame.setRemderFunction method.');
+          console.log('You must set an render function using the convergame.setRenderFunction method.');
           return false;
       }
       
