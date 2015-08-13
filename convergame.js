@@ -84,10 +84,19 @@ function Convergame(canvas) {
     /*ToDo: Add Event listeners to functions to different control tests*/
     element.addEventListener(""+ ev +"", func);
   }
-  this.setPixelGame = function(){
-    ctx.webkitImageSmoothingEnabled = false;
-    ctx.mozImageSmoothingEnabled = false;
-    ctx.imageSmoothingEnabled = false;
+  this.setPixelGame = function(active){
+    if (active)
+    {
+        this.ctx.webkitImageSmoothingEnabled = false;
+        this.ctx.mozImageSmoothingEnabled = false;
+        this.ctx.imageSmoothingEnabled = false;
+    }
+    else
+    {
+        this.ctx.webkitImageSmoothingEnabled = true;
+        this.ctx.mozImageSmoothingEnabled = true;
+        this.ctx.imageSmoothingEnabled = true;
+    }
   }
   this.getScreenScale = function(){
     //Multiply image width and height to the screen scale value as suggested: http://stackoverflow.com/a/27732737
