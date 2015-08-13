@@ -70,7 +70,30 @@ function Convergame(canvas) {
         this.setCanvasHeight();
     }.bind(this));
     
-  }
+    window.addEventListener("keydown", function(e) 
+    {
+        // space and arrow keys
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
+    
+    this.canvas.ondragstart = function(e) 
+    {
+        if (e && e.preventDefault) { e.preventDefault(); }
+        else if (e && e.stopPropagation) { e.stopPropagation(); }
+        return false;
+    };
+    
+    this.canvas.onselectstart = function(e) 
+    {
+        if (e && e.preventDefault) { e.preventDefault(); }
+        else if (e && e.stopPropagation) { e.stopPropagation(); }
+        return false;
+    };
+    
+  };
+  
   this.fullscreen = function(){
     if(canvas.requestFullScreen) {
       canvas.requestFullScreen();
@@ -314,24 +337,4 @@ function Convergame(canvas) {
     //assign to key
   }
   //$( ".game" ).load( "scenes/splash.html" );
-}
-
-window.addEventListener("keydown", function(e) {
-    // space and arrow keys
-    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-        e.preventDefault();
-    }
-}, false);
-
-canvas.ondragstart = function(e) {
-    if (e && e.preventDefault) { e.preventDefault(); }
-    if (e && e.stopPropagation) { e.stopPropagation(); }
-    return false;
-}
-
-// do nothing in the event handler except canceling the event
-canvas.onselectstart = function(e) {
-    if (e && e.preventDefault) { e.preventDefault(); }
-    if (e && e.stopPropagation) { e.stopPropagation(); }
-    return false;
 }
