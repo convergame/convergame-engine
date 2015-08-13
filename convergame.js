@@ -199,6 +199,12 @@ function Convergame() {
       req.send(null);
       element.innerHTML = req.responseText; 
     }
+    
+    this.loadSceneObject = function(scene) {
+        
+        scene.start();
+        
+    };
 
   this.include = function(dir) {
     var include = document.createElement('script');
