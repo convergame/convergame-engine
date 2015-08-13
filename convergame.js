@@ -63,6 +63,13 @@ function Convergame(canvas) {
     document.getElementById('body').style.margin = '0';
     //this.include('/js/webfonts.js');
     //this.include('/js/convergame-touch.js');
+    
+    window.addEventListener("resize", function(e) 
+    {
+        this.setCanvasWidth();
+        this.setCanvasHeight();
+    }.bind(this));
+    
   }
   this.fullscreen = function(){
     if(canvas.requestFullScreen) {
