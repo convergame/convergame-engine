@@ -6,7 +6,7 @@ function Convergame(canvas) {
   this.canvas = canvas;
   this.ctx = this.canvas.getContext("2d");
 
-  var screenScale, hasGP = false, repGP, axes;
+  var hasGP = false, repGP, axes;
 
   this.scene = null;
   
