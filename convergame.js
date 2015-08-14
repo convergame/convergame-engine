@@ -9,7 +9,9 @@ function Convergame(canvas) {
   var screenScale, hasGP = false, repGP, axes;
 
   this.scene = null;
-
+  
+  this.controlsMap = {};
+  
   this.then = null;
   
   this.sanityCheck = function(){
@@ -31,6 +33,7 @@ function Convergame(canvas) {
       this.scene.renderFunction();
     
       this.then = now;
+      this.controlsPressed = [];
     
       // Request to do this again ASAP
       requestAnimationFrame(this.mainGameLoop.bind(this));
@@ -56,6 +59,43 @@ function Convergame(canvas) {
   this.setCanvasHeight = function(){
     canvas.height = canvas.parentNode.offsetHeight;
   }
+  
+  this.getControlNameFromKeyCode = function(keyCode)
+  {
+      var control = null;
+      
+      switch (keyCode)
+        {
+            case 37:
+                control = "left";
+                break;
+            
+            case 38:
+                control = "up";
+                break;
+                
+            case 39:
+                control = "right";
+                break;
+            
+            case 40:
+                control = "down";
+                break;
+        }
+        
+        return control;
+  };
+  
+  this.isControlPressed = function(controlName)
+  {
+      if (typeof this.controlsMap[controlName] == 'undefined')
+      {
+          return false;
+      }
+      
+      return this.controlsMap[controlName];
+  };
+  
   this.init = function() {
     this.setCanvasWidth();
     this.setCanvasHeight();
@@ -72,11 +112,23 @@ function Convergame(canvas) {
     
     window.addEventListener("keydown", function(e) 
     {
+        var control = this.getControlNameFromKeyCode(e.keyCode);
+        
+        this.controlsMap[control] = true;
+        
         // space and arrow keys
         if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
             e.preventDefault();
         }
-    }, false);
+    }.bind(this));
+    
+    window.addEventListener("keyup", function(e) 
+    {
+        var control = this.getControlNameFromKeyCode(e.keyCode);
+        
+        this.controlsMap[control] = false;
+        
+    }.bind(this));
     
     this.canvas.ondragstart = function(e) 
     {
