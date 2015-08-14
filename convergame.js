@@ -66,19 +66,23 @@ function Convergame(canvas) {
       
       switch (keyCode)
         {
-            case 37:
+            case 37: // left arrow key
+            case 65: // a
                 control = "left";
                 break;
             
-            case 38:
+            case 38: // up arrow key
+            case 87: // w
                 control = "up";
                 break;
                 
-            case 39:
+            case 39: // right arrow key
+            case 68: // d
                 control = "right";
                 break;
             
-            case 40:
+            case 40: // down arrow key
+            case 83: // s
                 control = "down";
                 break;
         }
