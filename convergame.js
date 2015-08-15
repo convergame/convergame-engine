@@ -106,6 +106,13 @@ function Convergame(canvas) {
     this.ctx.strokeRect(x*this.getScreenScale(), y*this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
   };
   
+  this.drawFilledRect = function(x, y, width, height, strokeStyle, fillStyle)
+  {
+    this.ctx.strokeStyle = strokeStyle;
+    this.ctx.fillStyle = fillStyle;
+    this.ctx.fillRect(x*this.getScreenScale(), y*this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
+  };
+  
   this.drawText = function(x, y, style, fontSize, font, text)
   {
     this.ctx.font = 42 * this.getScreenScale() + "px " + font;
