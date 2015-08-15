@@ -100,6 +100,25 @@ function Convergame(canvas) {
       return this.controlsMap[controlName];
   };
   
+  this.drawRect = function(x, y, width, height, style)
+  {
+    this.ctx.strokeStyle = style;
+    this.ctx.strokeRect(x*this.getScreenScale(), y*this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
+  };
+  
+  this.drawText = function(x, y, style, fontSize, font, text)
+  {
+    this.ctx.font = 42 * this.getScreenScale() + "px " + font;
+    this.ctx.fillStyle = style;
+    this.ctx.fillText(text, x*this.getScreenScale(), y*this.getScreenScale());
+  };
+  
+  this.blankCanvas = function(style)
+  {
+    this.ctx.fillStyle = style;
+    this.ctx.fillRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight());
+  };
+  
   this.init = function() {
     this.setCanvasWidth();
     this.setCanvasHeight();
