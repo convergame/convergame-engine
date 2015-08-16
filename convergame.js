@@ -49,16 +49,16 @@ function Convergame(canvas) {
 
   this.getCanvasWidth = function(){
     return canvas.width;
-  }
+  };
   this.getCanvasHeight = function(){
     return canvas.height;
-  }
+  };
   this.setCanvasWidth = function(){
     canvas.width = canvas.parentNode.offsetWidth ;
-  }
+  };
   this.setCanvasHeight = function(){
     canvas.height = canvas.parentNode.offsetHeight;
-  }
+  };
   
   this.getControlNameFromKeyCode = function(keyCode)
   {
@@ -186,16 +186,16 @@ function Convergame(canvas) {
     } else {
       alert('Error: Fullscreen mode not supported by your browser. Please upgrade and try again!');
     }
-  }
+  };
   this.resize = function() {
     canvas.setAttribute("width",parseInt(canvas.parentNode.offsetWidth, 10));
     canvas.setAttribute("height",parseInt(canvas.parentNode.offsetHeight, 10));
-  }
+  };
   this.doEvent = function(element, ev, func) {
     /*ToDo: Return avaiable controls */
     /*ToDo: Add Event listeners to functions to different control tests*/
     element.addEventListener(""+ ev +"", func);
-  }
+  };
   this.setPixelGame = function(active){
     if (active)
     {
@@ -209,15 +209,15 @@ function Convergame(canvas) {
         this.ctx.mozImageSmoothingEnabled = true;
         this.ctx.imageSmoothingEnabled = true;
     }
-  }
+  };
   this.getScreenScale = function(){
     //Multiply image width and height to the screen scale value as suggested: http://stackoverflow.com/a/27732737
     screenScale = Math.min((convergame.getCanvasWidth() / 1920) + (convergame.getCanvasHeight() / 1080)) / 2;
     return screenScale;
-  }
+  };
   this.random = function(bottom, top) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
-  }
+  };
 
   this.sleep = function(milliseconds) {
     var start = new Date().getTime();
@@ -226,7 +226,7 @@ function Convergame(canvas) {
         break;
       }
     }
-  }
+  };
   this.isCollide = function(object1, object2) {
     if (object1.x < object2.x + object2.width  && object1.x + object1.width  > object2.x &&
         object1.y < object2.y + object2.height && object1.y + object1.height > object2.y) {
@@ -234,30 +234,11 @@ function Convergame(canvas) {
     } else {
       return false;
     }
-  }
+  };
   /*Gamepad*/
   function canGamepads() {
         return "getGamepads" in navigator;
     }
-
-    function reportOnGamepad() {
-        var gp = navigator.getGamepads()[0];
-        var html = "";
-            html += "id: "+gp.id+"<br/>";
-
-        for(var i=0;i<gp.buttons.length;i++) {
-            html+= "Button "+(i+1)+": ";
-            if(gp.buttons[i].pressed) html+= " pressed";
-            html+= "<br/>";
-        }
-
-        for(var i=0;i<gp.axes.length; i+=2) {
-            html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
-        }
-
-        $("#gamepadDisplay").html(html);
-    }
-
 
     this.fetchGamepad = function() {
 
@@ -292,14 +273,14 @@ function Convergame(canvas) {
             }, 500);
         }
 
-    }
+    };
     this.getControllerAxis = function() {
 
         gp = navigator.getGamepads()[0];
          axes = gp.axes[0];
          return axes;
 
-    }
+    };
   
     this.changeScene = function(scene) {
         
@@ -314,18 +295,18 @@ function Convergame(canvas) {
     include.src = ''+ dir +'';
     include.type = 'text/javascript';
     document.body.appendChild(include);
-  }
+  };
 
   this.preShake = function() {
     ctx.save();
     var dx = Math.random()*8;
     var dy = Math.random()*8;
     ctx.translate(dx, dy);
-  }
+  };
 
   this.postShake = function() {
     ctx.restore();
-  }
+  };
 
 
   /*Virtual Controls*/
@@ -333,9 +314,8 @@ function Convergame(canvas) {
     //13
     gp = navigator.getGamepads()[0];
     if(typeof gp != 'undefined') {
-
-
-      if(gp.buttons[12].pressed == true) {
+      
+      if(gp.buttons[12].pressed === true) {
         return true;
       } else {
         return false;
@@ -343,58 +323,58 @@ function Convergame(canvas) {
     }
 
 
-  }
+  };
   this.vkDown = function() {
     //assign to key 14
     gp = navigator.getGamepads()[0];
     if(typeof gp !== 'undefined') {
       gp = navigator.getGamepads()[0];
 
-      if(gp.buttons[13].pressed == true) {
+      if(gp.buttons[13].pressed === true) {
         return true;
       } else {
         return false;
       }
     }
-  }
+  };
   this.vkLeft = function() {
     //assign to key 15
     gp = navigator.getGamepads()[0];
     if(typeof gp !== 'undefined') {
       gp = navigator.getGamepads()[0];
 
-      if(gp.buttons[14].pressed == true) {
+      if(gp.buttons[14].pressed === true) {
         return true;
       } else {
         return false;
       }
     }
 
-  }
+  };
   this.vkRight = function() {
     //assign to key 16
     gp = navigator.getGamepads()[0];
     if(typeof gp !== 'undefined') {
       gp = navigator.getGamepads()[0];
 
-      if(gp.buttons[15].pressed == true) {
+      if(gp.buttons[15].pressed === true) {
         return true;
       } else {
         return false;
       }
     }
 
-  }
+  };
   this.vkStart = function() {
     //assign to key
 
-  }
+  };
   this.vkBtn1 = function() {
     gp = navigator.getGamepads()[0];
     if(typeof gp !== 'undefined') {
       gp = navigator.getGamepads()[0];
 
-      if(gp.buttons[0].pressed == true) {
+      if(gp.buttons[0].pressed === true) {
         return true;
       } else {
         return false;
@@ -402,21 +382,20 @@ function Convergame(canvas) {
     }
 
     //assign to key
-  }
+  };
   this.vkBtn2 = function() {
     //assign to key
-  }
+  };
   this.vkBtn3 = function() {
     //assign to key
-  }
+  };
   this.vkBtn4 = function() {
     //assign to key
-  }
+  };
   this.vkBtnL = function() {
     //assign to key
-  }
+  };
   this.vkBtnR = function() {
     //assign to key
-  }
-  //$( ".game" ).load( "scenes/splash.html" );
+  };
 }
