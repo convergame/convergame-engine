@@ -52,10 +52,11 @@ function Convergame(canvas) {
     return canvas.height;
   };
   this.setCanvasWidth = function(){
-    canvas.width = canvas.parentNode.offsetWidth ;
+    canvas.width = canvas.parentNode.offsetWidth;
   };
   this.setCanvasHeight = function(){
-    canvas.height = canvas.parentNode.offsetHeight;
+    canvas.height = window.innerHeight;
+    canvas.style.height = window.innerHeight+"px";
   };
   
   this.getControlNameFromKeyCode = function(keyCode)
