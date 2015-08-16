@@ -114,18 +114,21 @@ function Convergame(canvas) {
     this.ctx.fillRect(x*this.getScreenScale(), y*this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
   };
   
-  this.drawText = function(x, y, style, fontSize, font, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
+  this.drawText = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
   {
     shadow = typeof shadow !== 'undefined' ? shadow : false;
     this.ctx.font = fontSize * this.getScreenScale() + "px " + font;
-    
+    var textWidth = this.ctx.measureText(text).width,
+        textHeight = this.ctx.measureText(text).height;
+    this.ctx.textAlign = "center";
+
     if(shadow === true) {
       this.ctx.fillStyle = shadowCol;
-      this.ctx.fillText(text, x*this.getScreenScale() + shadowOffsetX, y*this.getScreenScale() + shadowOffsetY);
+      this.ctx.fillText(text, x + shadowOffsetX, y + shadowOffsetY);
     }
 
     this.ctx.fillStyle = style;
-    this.ctx.fillText(text, x*this.getScreenScale(), y*this.getScreenScale());
+    this.ctx.fillText(text, x, y);
   };
   
   this.blankCanvas = function(style)
