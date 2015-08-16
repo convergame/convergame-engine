@@ -118,8 +118,6 @@ function Convergame(canvas) {
   {
     shadow = typeof shadow !== 'undefined' ? shadow : false;
     this.ctx.font = fontSize * this.getScreenScale() + "px " + font;
-    var textWidth = this.ctx.measureText(text).width,
-        textHeight = this.ctx.measureText(text).height;
     this.ctx.textAlign = "center";
 
     if(shadow === true) {
