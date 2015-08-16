@@ -1,6 +1,4 @@
-
 var canvas = document.getElementById("game");
-
 function Convergame(canvas) {
 
   this.canvas = canvas;
@@ -113,9 +111,16 @@ function Convergame(canvas) {
     this.ctx.fillRect(x*this.getScreenScale(), y*this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
   };
   
-  this.drawText = function(x, y, style, fontSize, font, text)
+  this.drawText = function(x, y, style, fontSize, font, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
   {
-    this.ctx.font = 42 * this.getScreenScale() + "px " + font;
+    shadow = typeof shadow !== 'undefined' ? shadow : false;
+    this.ctx.font = fontSize * this.getScreenScale() + "px " + font;
+    
+    if(shadow === true) {
+      this.ctx.fillStyle = shadowCol;
+      this.ctx.fillText(text, x*this.getScreenScale() + shadowOffsetX, y*this.getScreenScale() + shadowOffsetY);
+    }
+
     this.ctx.fillStyle = style;
     this.ctx.fillText(text, x*this.getScreenScale(), y*this.getScreenScale());
   };
@@ -380,8 +385,6 @@ function Convergame(canvas) {
         return false;
       }
     }
-
-    //assign to key
   };
   this.vkBtn2 = function() {
     //assign to key
