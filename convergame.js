@@ -83,6 +83,9 @@ function Convergame(canvas) {
             case 83: // s
                 control = "down";
                 break;
+            case 13: // enter
+                control = "enter";
+                break;
         }
         
         return control;
