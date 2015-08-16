@@ -1,12 +1,10 @@
-
 var canvas = document.getElementById("game");
-
 function Convergame(canvas) {
 
   this.canvas = canvas;
   this.ctx = this.canvas.getContext("2d");
 
-  var screenScale, hasGP = false, repGP, axes;
+  var hasGP = false, repGP, axes;
 
   this.scene = null;
   
@@ -66,19 +64,23 @@ function Convergame(canvas) {
       
       switch (keyCode)
         {
-            case 37:
+            case 37: // left arrow key
+            case 65: // a
                 control = "left";
                 break;
             
-            case 38:
+            case 38: // up arrow key
+            case 87: // w
                 control = "up";
                 break;
                 
-            case 39:
+            case 39: // right arrow key
+            case 68: // d
                 control = "right";
                 break;
             
-            case 40:
+            case 40: // down arrow key
+            case 83: // s
                 control = "down";
                 break;
         }
@@ -94,6 +96,39 @@ function Convergame(canvas) {
       }
       
       return this.controlsMap[controlName];
+  };
+  
+  this.drawRect = function(x, y, width, height, style)
+  {
+    this.ctx.strokeStyle = style;
+    this.ctx.strokeRect(x*this.getScreenScale(), y*this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
+  };
+  
+  this.drawFilledRect = function(x, y, width, height, strokeStyle, fillStyle)
+  {
+    this.ctx.strokeStyle = strokeStyle;
+    this.ctx.fillStyle = fillStyle;
+    this.ctx.fillRect(x*this.getScreenScale(), y*this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
+  };
+  
+  this.drawText = function(x, y, style, fontSize, font, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
+  {
+    shadow = typeof shadow !== 'undefined' ? shadow : false;
+    this.ctx.font = fontSize * this.getScreenScale() + "px " + font;
+    
+    if(shadow === true) {
+      this.ctx.fillStyle = shadowCol;
+      this.ctx.fillText(text, x*this.getScreenScale() + shadowOffsetX, y*this.getScreenScale() + shadowOffsetY);
+    }
+
+    this.ctx.fillStyle = style;
+    this.ctx.fillText(text, x*this.getScreenScale(), y*this.getScreenScale());
+  };
+  
+  this.blankCanvas = function(style)
+  {
+    this.ctx.fillStyle = style;
+    this.ctx.fillRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight());
   };
   
   this.init = function() {
@@ -207,31 +242,15 @@ function Convergame(canvas) {
   };
   /*Gamepad*/
   function canGamepads() {
-      return "getGamepads" in navigator;
-  }
-    /*
-    function reportOnGamepad() {
-        var gp = navigator.getGamepads()[0];
-        var html = "";
-            html += "id: "+gp.id+"<br/>";
-
-        for(var i=0;i<gp.buttons.length;i++) {
-            html+= "Button "+(i+1)+": ";
-            if(gp.buttons[i].pressed) html+= " pressed";
-            html+= "<br/>";
-        }
-
-        for(var i=0;i<gp.axes.length; i+=2) {
-            html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
-        }
-
-        $("#gamepadDisplay").html(html);
-    };*/
-
+        return "getGamepads" in navigator;
+    }
 
     this.fetchGamepad = function() {
 
         if(canGamepads()) {
+
+            var prompt = "To begin using your gamepad, connect it and press any button!";
+            console.log(prompt);
 
             window.addEventListener("gamepadconnected", function(e) {
                 hasGP = true;
@@ -300,8 +319,7 @@ function Convergame(canvas) {
     //13
     gp = navigator.getGamepads()[0];
     if(typeof gp != 'undefined') {
-
-
+      
       if(gp.buttons[12].pressed === true) {
         return true;
       } else {
@@ -367,8 +385,6 @@ function Convergame(canvas) {
         return false;
       }
     }
-
-    //assign to key
   };
   this.vkBtn2 = function() {
     //assign to key
@@ -385,5 +401,4 @@ function Convergame(canvas) {
   this.vkBtnR = function() {
     //assign to key
   };
-  //$( ".game" ).load( "scenes/splash.html" );
 }
