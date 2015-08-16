@@ -51,12 +51,9 @@ function Convergame(canvas) {
   this.getCanvasHeight = function(){
     return canvas.height;
   };
-  this.setCanvasWidth = function(){
-    canvas.width = canvas.parentNode.offsetWidth;
-  };
-  this.setCanvasHeight = function(){
-    canvas.height = window.innerHeight;
-    canvas.style.height = window.innerHeight+"px";
+  this.setCanvasTo16By9Ratio = function(){
+    canvas.width = window.innerWidth;
+    canvas.height = canvas.width*0.5625;
   };
   
   this.getControlNameFromKeyCode = function(keyCode)
@@ -105,29 +102,29 @@ function Convergame(canvas) {
   this.drawRect = function(x, y, width, height, style)
   {
     this.ctx.strokeStyle = style;
-    this.ctx.strokeRect(x, y, width*this.getScreenScale(), height*this.getScreenScale());
+    this.ctx.strokeRect(x, y * this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
   };
   
   this.drawFilledRect = function(x, y, width, height, strokeStyle, fillStyle)
   {
     this.ctx.strokeStyle = strokeStyle;
     this.ctx.fillStyle = fillStyle;
-    this.ctx.fillRect(x, y, width*this.getScreenScale(), height*this.getScreenScale());
+    this.ctx.fillRect(x, y * this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
   };
   
   this.drawText = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
   {
     shadow = typeof shadow !== 'undefined' ? shadow : false;
     this.ctx.font = fontSize * this.getScreenScale() + "px " + font;
-    this.ctx.textAlign = "center";
+    this.ctx.textAlign = align;
 
     if(shadow === true) {
       this.ctx.fillStyle = shadowCol;
-      this.ctx.fillText(text, x + shadowOffsetX, y + shadowOffsetY);
+      this.ctx.fillText(text, (x + shadowOffsetX), (y + shadowOffsetY) * this.getScreenScale());
     }
 
     this.ctx.fillStyle = style;
-    this.ctx.fillText(text, x, y);
+    this.ctx.fillText(text, x, y * this.getScreenScale());
   };
   
   this.blankCanvas = function(style)
@@ -137,8 +134,7 @@ function Convergame(canvas) {
   };
   
   this.init = function() {
-    this.setCanvasWidth();
-    this.setCanvasHeight();
+    this.setCanvasTo16By9Ratio();
     document.getElementById('body').style.padding = '0';
     document.getElementById('body').style.margin = '0';
     //this.include('/js/webfonts.js');
@@ -146,8 +142,7 @@ function Convergame(canvas) {
     
     window.addEventListener("resize", function(e) 
     {
-        this.setCanvasWidth();
-        this.setCanvasHeight();
+        this.setCanvasTo16By9Ratio();
     }.bind(this));
     
     window.addEventListener("keydown", function(e) 
