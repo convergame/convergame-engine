@@ -99,6 +99,24 @@ function Convergame(canvas) {
       return this.controlsMap[controlName];
   };
   
+  this.drawCircle = function(centreX, centreY, radius, style)
+  {
+    this.ctx.strokeStyle = style;
+    this.ctx.beginPath();
+    this.ctx.arc(centreX, centreY * this.getScreenScale(), radius * this.getScreenScale(), 0, 2*Math.PI);
+    this.ctx.stroke();
+  };
+  
+  this.drawFilledCircle = function(centreX, centreY, radius, stokeStyle, fillStyle)
+  {
+    this.ctx.strokeStyle = strokeStyle;
+    this.ctx.fillStyle = fillStyle;
+    this.ctx.beginPath();
+    this.ctx.arc(centreX, centreY * this.getScreenScale(), radius * this.getScreenScale(), 0, 2*Math.PI);
+    this.ctx.stroke();
+    this.ctx.fill();
+  };
+  
   this.drawRect = function(x, y, width, height, style)
   {
     this.ctx.strokeStyle = style;
