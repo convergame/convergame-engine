@@ -307,8 +307,13 @@ function Convergame(canvas) {
   
     this.changeScene = function(scene) {
         
+        // Ensuring control presses do not carry over to next scene
+        this.controlsMap = {};
+        
+        // Switch scene
         this.scene = scene;
         
+        // Run scene initialisation
         this.scene.init(this);
         
     };
