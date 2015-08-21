@@ -107,7 +107,7 @@ function Convergame(canvas) {
     this.ctx.stroke();
   };
   
-  this.drawFilledCircle = function(centreX, centreY, radius, stokeStyle, fillStyle)
+  this.drawFilledCircle = function(centreX, centreY, radius, strokeStyle, fillStyle)
   {
     this.ctx.strokeStyle = strokeStyle;
     this.ctx.fillStyle = fillStyle;
