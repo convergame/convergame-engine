@@ -13,12 +13,10 @@ function Convergame(canvas) {
   this.then = null;
   
   this.sanityCheck = function(){
-      
       if (typeof this.scene != 'object') {
           console.log('You must set a scene using the convergame.changeScene method.');
           return false;
       }
-      
       return true;
   };
 
@@ -64,26 +62,26 @@ function Convergame(canvas) {
         {
             case 37: // left arrow key
             case 65: // a
-                control = "left";
-                break;
-            
+              control = "left";
+              break;
             case 38: // up arrow key
             case 87: // w
-                control = "up";
-                break;
-                
+              control = "up";
+              break; 
             case 39: // right arrow key
             case 68: // d
-                control = "right";
-                break;
-            
+              control = "right";
+              break;
             case 40: // down arrow key
             case 83: // s
-                control = "down";
-                break;
+              control = "down";
+              break;
             case 13: // enter
-                control = "enter";
-                break;
+              control = "enter";
+              break;
+            case 32: //space
+              control = "space";
+              break;
         }
         
         return control;
