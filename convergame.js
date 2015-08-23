@@ -52,6 +52,12 @@ function Convergame(canvas) {
   this.setCanvasTo16By9Ratio = function(){
     canvas.width = window.innerWidth;
     canvas.height = canvas.width*0.5625;
+    
+    while (canvas.width>=window.innerWidth || canvas.height>=window.innerHeight)
+    {
+        canvas.width -= 1;
+        canvas.height -= 1;
+    }
   };
   
   this.getControlNameFromKeyCode = function(keyCode)
