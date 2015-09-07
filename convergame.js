@@ -107,7 +107,7 @@ function Convergame(canvas) {
   {
     this.ctx.strokeStyle = style;
     this.ctx.beginPath();
-    this.ctx.arc(centreX, centreY * this.getScreenScale(), radius * this.getScreenScale(), 0, 2*Math.PI);
+    this.ctx.arc(centreX, centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
     this.ctx.stroke();
   };
   
@@ -116,7 +116,7 @@ function Convergame(canvas) {
     this.ctx.strokeStyle = strokeStyle;
     this.ctx.fillStyle = fillStyle;
     this.ctx.beginPath();
-    this.ctx.arc(centreX, centreY * this.getScreenScale(), radius * this.getScreenScale(), 0, 2*Math.PI);
+    this.ctx.arc(centreX, centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
     this.ctx.stroke();
     this.ctx.fill();
   };
@@ -124,29 +124,29 @@ function Convergame(canvas) {
   this.drawRect = function(x, y, width, height, style)
   {
     this.ctx.strokeStyle = style;
-    this.ctx.strokeRect(x, y * this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
+    this.ctx.strokeRect(x*this.getXScale(), y * this.getYScale(), width*this.getXScale(), height*this.getYScale());
   };
   
   this.drawFilledRect = function(x, y, width, height, strokeStyle, fillStyle)
   {
     this.ctx.strokeStyle = strokeStyle;
     this.ctx.fillStyle = fillStyle;
-    this.ctx.fillRect(x, y * this.getScreenScale(), width*this.getScreenScale(), height*this.getScreenScale());
+    this.ctx.fillRect(x*this.getXScale(), y * this.getYScale(), width*this.getXScale(), height*this.getYScale());
   };
   
   this.drawText = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
   {
     shadow = typeof shadow !== 'undefined' ? shadow : false;
-    this.ctx.font = fontSize * this.getScreenScale() + "px " + font;
+    this.ctx.font = fontSize * this.getXScale() + "px " + font;
     this.ctx.textAlign = align;
 
     if(shadow === true) {
       this.ctx.fillStyle = shadowCol;
-      this.ctx.fillText(text, (x + shadowOffsetX), (y + shadowOffsetY) * this.getScreenScale());
+      this.ctx.fillText(text, (x + shadowOffsetX) * this.getXScale(), (y + shadowOffsetY) * this.getYScale());
     }
 
     this.ctx.fillStyle = style;
-    this.ctx.fillText(text, x, y * this.getScreenScale());
+    this.ctx.fillText(text, x * this.getXScale(), y * this.getYScale());
   };
   
   this.blankCanvas = function(style)
@@ -237,11 +237,15 @@ function Convergame(canvas) {
         this.ctx.imageSmoothingEnabled = true;
     }
   };
-  this.getScreenScale = function(){
-    //Multiply image width and height to the screen scale value as suggested: http://stackoverflow.com/a/27732737
-    screenScale = Math.min((convergame.getCanvasWidth() / 1920) + (convergame.getCanvasHeight() / 1080)) / 2;
-    return screenScale;
+  
+  this.getXScale = function(){
+    return (convergame.getCanvasWidth()/1920);
   };
+  
+  this.getYScale = function(){
+    return (convergame.getCanvasHeight()/1080);
+  };
+  
   this.random = function(bottom, top) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
   };
