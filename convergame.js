@@ -102,6 +102,11 @@ function Convergame(canvas) {
       
       return this.controlsMap[controlName];
   };
+
+  this.drawImage = function(img, x, y, imgWidth, imgHeight)
+  {
+    this.ctx.drawImage(img, x * this.getXScale(), y * this.getYScale(), imgWidth, imgHeight);
+  };
   
   this.drawCircle = function(centreX, centreY, radius, style)
   {
