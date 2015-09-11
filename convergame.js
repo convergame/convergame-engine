@@ -10,6 +10,8 @@ function Convergame(canvas) {
   
   this.controlsMap = {};
   
+  this.loadedImages = [];
+  
   this.then = null;
   
   this.sanityCheck = function(){
@@ -103,9 +105,21 @@ function Convergame(canvas) {
       return this.controlsMap[controlName];
   };
 
-  this.drawImage = function(img, x, y, imgWidth, imgHeight)
+  this.drawImage = function(imagePath, x, y, imgWidth, imgHeight)
   {
-    this.ctx.drawImage(img, x * this.getXScale(), y * this.getYScale(), imgWidth, imgHeight);
+    var img = new Image();
+    var _this = this;
+    
+    img.onload = function () {
+        _this.loadedImages.push(imagePath);
+    };
+    
+    img.src = imagePath;
+    
+    if (this.loadedImages.indexOf(imagePath)>-1)
+    {
+        this.ctx.drawImage(img, x * this.getXScale(), y * this.getYScale(), imgWidth, imgHeight);
+    }
   };
   
   this.drawCircle = function(centreX, centreY, radius, style)
