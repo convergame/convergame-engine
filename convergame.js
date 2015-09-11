@@ -118,7 +118,7 @@ function Convergame(canvas) {
     
     if (this.loadedImages.indexOf(imagePath)>-1)
     {
-        this.ctx.drawImage(img, x * this.getXScale(), y * this.getYScale(), imgWidth, imgHeight);
+        this.ctx.drawImage(img, x * this.getXScale(), y * this.getYScale(), imgWidth * this.getXScale() , imgHeight * this.getYScale());
     }
   };
   
