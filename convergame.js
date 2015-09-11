@@ -126,7 +126,7 @@ function Convergame(canvas) {
   {
     this.ctx.strokeStyle = style;
     this.ctx.beginPath();
-    this.ctx.arc(centreX, centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
+    this.ctx.arc(centreX * this.getXScale(), centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
     this.ctx.stroke();
   };
   
@@ -135,7 +135,7 @@ function Convergame(canvas) {
     this.ctx.strokeStyle = strokeStyle;
     this.ctx.fillStyle = fillStyle;
     this.ctx.beginPath();
-    this.ctx.arc(centreX, centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
+    this.ctx.arc(centreX * this.getXScale(), centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
     this.ctx.stroke();
     this.ctx.fill();
   };
