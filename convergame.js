@@ -10,7 +10,7 @@ function Convergame(canvas) {
   
   this.controlsMap = {};
   
-  this.loadedImages = [];
+  this.loadedImages = {};
   
   this.then = null;
   
@@ -107,18 +107,20 @@ function Convergame(canvas) {
 
   this.drawImage = function(imagePath, x, y, imgWidth, imgHeight)
   {
-    var img = new Image();
-    var _this = this;
-    
-    img.onload = function () {
-        _this.loadedImages.push(imagePath);
-    };
-    
-    img.src = imagePath;
-    
-    if (this.loadedImages.indexOf(imagePath)>-1)
+    if (typeof this.loadedImages[imagePath] != 'undefined')
     {
-        this.ctx.drawImage(img, x * this.getXScale(), y * this.getYScale(), imgWidth * this.getXScale() , imgHeight * this.getYScale());
+        this.ctx.drawImage(this.loadedImages[imagePath], x * this.getXScale(), y * this.getYScale(), imgWidth * this.getXScale() , imgHeight * this.getYScale());
+    }
+    else
+    {
+        var img = new Image();
+        var _this = this;
+        
+        img.onload = function () {
+            _this.loadedImages[imagePath] = img;
+        };
+        
+        img.src = imagePath;
     }
   };
   
