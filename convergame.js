@@ -167,6 +167,16 @@ function Convergame(canvas) {
     this.ctx.fillStyle = style;
     this.ctx.fillText(text, x * this.getXScale(), y * this.getYScale());
   };
+
+  this.getTextWidth = function(string) {
+    var text = this.ctx.measureText(string);
+    return text.width;
+  }
+
+  this.getTextHeight = function(string) {
+    var text = this.ctx.measureText(string);
+    return text.height;
+  }
   
   this.blankCanvas = function(style)
   {
