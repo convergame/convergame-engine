@@ -171,12 +171,12 @@ function Convergame(canvas) {
   this.getTextWidth = function(string) {
     var text = this.ctx.measureText(string);
     return text.width;
-  }
+  };
 
   this.getTextHeight = function(string) {
     var text = this.ctx.measureText(string);
     return text.height;
-  }
+  };
   
   this.blankCanvas = function(style)
   {
