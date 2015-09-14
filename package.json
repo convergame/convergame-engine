@@ -1,7 +1,7 @@
 {
   "name": "convergame-engine",
   "version": "0.0.1",
-  "license": "GLP3",
+  "license": "LGPLv3",
   "repository": "https://github.com/convergame/convergame-engine",
   "devDependencies": {
     "del": "~1.2.1",
