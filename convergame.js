@@ -14,113 +14,114 @@ function Convergame(canvas) {
 
   this.then = null;
 
-  this.sanityCheck = function(){
-      if (typeof this.scene != 'object') {
-          console.log('You must set a scene using the convergame.changeScene method.');
-          return false;
-      }
-      return true;
+  this.sanityCheck = function() {
+    if (typeof this.scene != 'object') {
+      console.log('You must set a scene using the convergame.changeScene method.');
+      return false;
+    }
+    return true;
   };
 
-  this.mainGameLoop = function(){
-      var now = Date.now();
-      var delta = now - this.then;
-      var time = delta / 1000;
+  this.mainGameLoop = function() {
+    var now = Date.now();
+    var delta = now - this.then;
+    var time = delta / 1000;
 
-      this.scene.updateFunction(time);
-      this.scene.renderFunction();
+    this.scene.updateFunction(time);
+    this.scene.renderFunction();
 
-      this.then = now;
-      this.controlsPressed = [];
+    this.then = now;
+    this.controlsPressed = [];
 
-      // Request to do this again ASAP
-      requestAnimationFrame(this.mainGameLoop.bind(this));
+    // Request to do this again ASAP
+    requestAnimationFrame(this.mainGameLoop.bind(this));
   };
 
-  this.startMainGameLoop = function(){
+  this.startMainGameLoop = function() {
+    if (!this.sanityCheck()) return;
 
-      if (!this.sanityCheck()) return;
-
-      this.then = Date.now();
-      this.mainGameLoop();
+    this.then = Date.now();
+    this.mainGameLoop();
   };
 
-  this.getCanvasWidth = function(){
+  this.getCanvasWidth = function() {
     return canvas.width;
   };
-  this.getCanvasHeight = function(){
+
+  this.getCanvasHeight = function() {
     return canvas.height;
   };
-  this.setCanvasTo16By9Ratio = function(){
+
+  this.setCanvasTo16By9Ratio = function() {
     canvas.width = window.innerWidth;
     canvas.height = canvas.width*0.5625;
 
     while (canvas.width>=window.innerWidth || canvas.height>=window.innerHeight)
     {
-        canvas.width -= 1;
-        canvas.height -= 1;
+      canvas.width -= 1;
+      canvas.height -= 1;
     }
   };
 
   this.getControlNameFromKeyCode = function(keyCode)
   {
-      var control = null;
+    var control = null;
 
-      switch (keyCode)
-        {
-            case 37: // left arrow key
-            case 65: // a
-              control = "left";
-              break;
-            case 38: // up arrow key
-            case 87: // w
-              control = "up";
-              break;
-            case 39: // right arrow key
-            case 68: // d
-              control = "right";
-              break;
-            case 40: // down arrow key
-            case 83: // s
-              control = "down";
-              break;
-            case 13: // enter
-              control = "enter";
-              break;
-            case 32: //space
-              control = "space";
-              break;
-        }
+    switch (keyCode)
+    {
+      case 37: // left arrow key
+      case 65: // a
+        control = "left";
+        break;
+      case 38: // up arrow key
+      case 87: // w
+        control = "up";
+        break;
+      case 39: // right arrow key
+      case 68: // d
+        control = "right";
+        break;
+      case 40: // down arrow key
+      case 83: // s
+        control = "down";
+        break;
+      case 13: // enter
+        control = "enter";
+        break;
+      case 32: //space
+        control = "space";
+        break;
+    }
 
-        return control;
+      return control;
   };
 
   this.isControlPressed = function(controlName)
   {
-      if (typeof this.controlsMap[controlName] == 'undefined')
-      {
-          return false;
-      }
+    if (typeof this.controlsMap[controlName] == 'undefined')
+    {
+      return false;
+    }
 
-      return this.controlsMap[controlName];
+    return this.controlsMap[controlName];
   };
 
   this.drawImage = function(imagePath, x, y, imgWidth, imgHeight)
   {
     if (typeof this.loadedImages[imagePath] != 'undefined')
     {
-        this.ctx.drawImage(this.loadedImages[imagePath], x * this.getXScale(), y * this.getYScale(), imgWidth * this.getXScale() , imgHeight * this.getYScale());
+      this.ctx.drawImage(this.loadedImages[imagePath], x * this.getXScale(), y * this.getYScale(), imgWidth * this.getXScale() , imgHeight * this.getYScale());
     }
     else
     {
-        var img = new Image();
-        var _this = this;
+      var img = new Image();
+      var _this = this;
 
-        img.onload = function () {
-            _this.loadedImages[imagePath] = img;
-        };
+      img.onload = function () {
+        _this.loadedImages[imagePath] = img;
+      };
 
-        img.src = imagePath;
+      img.src = imagePath;
     }
   };
 
@@ -193,48 +194,43 @@ function Convergame(canvas) {
     //this.include('/js/webfonts.js');
     //this.include('/js/convergame-touch.js');
 
-    window.addEventListener("resize", function(e)
-    {
-        this.setCanvasTo16By9Ratio();
+    window.addEventListener("resize", function(e) {
+      this.setCanvasTo16By9Ratio();
     }.bind(this));
 
-    window.addEventListener("keydown", function(e)
-    {
-        var control = this.getControlNameFromKeyCode(e.keyCode);
+    window.addEventListener("keydown", function(e) {
+      var control = this.getControlNameFromKeyCode(e.keyCode);
 
-        this.controlsMap[control] = true;
+      this.controlsMap[control] = true;
 
-        // space and arrow keys
-        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-            e.preventDefault();
-        }
+      // space and arrow keys
+      if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+      }
     }.bind(this));
 
-    window.addEventListener("keyup", function(e)
-    {
-        var control = this.getControlNameFromKeyCode(e.keyCode);
+    window.addEventListener("keyup", function(e) {
+      var control = this.getControlNameFromKeyCode(e.keyCode);
 
-        this.controlsMap[control] = false;
-
+      this.controlsMap[control] = false;
     }.bind(this));
 
     this.canvas.ondragstart = function(e)
     {
-        if (e && e.preventDefault) { e.preventDefault(); }
-        else if (e && e.stopPropagation) { e.stopPropagation(); }
-        return false;
+      if (e && e.preventDefault) { e.preventDefault(); }
+      else if (e && e.stopPropagation) { e.stopPropagation(); }
+      return false;
     };
 
     this.canvas.onselectstart = function(e)
     {
-        if (e && e.preventDefault) { e.preventDefault(); }
-        else if (e && e.stopPropagation) { e.stopPropagation(); }
-        return false;
+      if (e && e.preventDefault) { e.preventDefault(); }
+      else if (e && e.stopPropagation) { e.stopPropagation(); }
+      return false;
     };
-
   };
 
-  this.fullscreen = function(){
+  this.fullscreen = function() {
     if(canvas.requestFullScreen) {
       canvas.requestFullScreen();
     } else if(canvas.webkitRequestFullScreen) {
@@ -246,26 +242,23 @@ function Convergame(canvas) {
     }
   };
 
-  this.setPixelGame = function(active){
-    if (active)
-    {
-        this.ctx.webkitImageSmoothingEnabled = false;
-        this.ctx.mozImageSmoothingEnabled = false;
-        this.ctx.imageSmoothingEnabled = false;
-    }
-    else
-    {
-        this.ctx.webkitImageSmoothingEnabled = true;
-        this.ctx.mozImageSmoothingEnabled = true;
-        this.ctx.imageSmoothingEnabled = true;
+  this.setPixelGame = function(active) {
+    if (active) {
+      this.ctx.webkitImageSmoothingEnabled = false;
+      this.ctx.mozImageSmoothingEnabled = false;
+      this.ctx.imageSmoothingEnabled = false;
+    } else {
+      this.ctx.webkitImageSmoothingEnabled = true;
+      this.ctx.mozImageSmoothingEnabled = true;
+      this.ctx.imageSmoothingEnabled = true;
     }
   };
 
-  this.getXScale = function(){
+  this.getXScale = function() {
     return (convergame.getCanvasWidth()/1920);
   };
 
-  this.getYScale = function(){
+  this.getYScale = function() {
     return (convergame.getCanvasHeight()/1080);
   };
 
@@ -283,7 +276,6 @@ function Convergame(canvas) {
   };
 
   this.changeScene = function(scene) {
-
     // Ensuring control presses do not carry over to next scene
     this.controlsMap = {};
 
@@ -292,8 +284,7 @@ function Convergame(canvas) {
 
     // Run scene initialisation
     this.scene.init(this);
-
-    };
+  };
 
   this.preShake = function() {
     ctx.save();
@@ -305,5 +296,4 @@ function Convergame(canvas) {
   this.postShake = function() {
     ctx.restore();
   };
-
 }
