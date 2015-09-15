@@ -31,13 +31,18 @@ function Convergame(canvas) {
     
     var i;
 
+    // 1. Run updateFunction for all persistentScenes (allows main scene to reference data set in persistentScenes)
     for (i = 0; i < this.persistentScenes.length; i++) {
         this.persistentScenes[i].updateFunction(time);
     }
 
+    // 2. Run updateFunction main scene
     this.scene.updateFunction(time);
+    
+    // 3. Run renderFunction main scene (appears below persistentScenes rendering)
     this.scene.renderFunction();
     
+    // 4. Run renderFunction for all persistentScenes (appears above main scene rendering)
     for (i = 0; i < this.persistentScenes.length; i++) {
         this.persistentScenes[i].renderFunction();
     }
