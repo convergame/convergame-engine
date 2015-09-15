@@ -7,6 +7,8 @@ function Convergame(canvas) {
   var hasGP = false, repGP, axes;
 
   this.scene = null;
+  
+  this.persistentScenes = [];
 
   this.controlsMap = {};
 
@@ -26,9 +28,19 @@ function Convergame(canvas) {
     var now = Date.now();
     var delta = now - this.then;
     var time = delta / 1000;
+    
+    var i;
+
+    for (i = 0; i < this.persistentScenes.length; i++) {
+        this.persistentScenes[i].updateFunction(time);
+    }
 
     this.scene.updateFunction(time);
     this.scene.renderFunction();
+    
+    for (i = 0; i < this.persistentScenes.length; i++) {
+        this.persistentScenes[i].renderFunction();
+    }
 
     this.then = now;
     this.controlsPressed = [];
@@ -296,4 +308,22 @@ function Convergame(canvas) {
   this.postShake = function() {
     ctx.restore();
   };
+  
+  this.addPersistentScene = function(sceneObject) {
+    
+    // Run scene initialisation
+    sceneObject.init(this);
+    
+    // Add scene to persistentScenes array
+    this.persistentScenes.push(sceneObject);
+  };
+  
+  this.removePersistentScene = function(sceneObject) {
+
+    // Remove scene from persistentScenes array
+    var index = this.persistentScenes.indexOf(sceneObject);
+    this.persistentScenes.splice(index, 1);
+
+  };
+  
 }
