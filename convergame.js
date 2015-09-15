@@ -17,7 +17,7 @@ function Convergame(canvas) {
   this.then = null;
 
   this.sanityCheck = function() {
-    if (typeof this.scene != 'object') {
+    if (typeof this.scene !== 'object') {
       console.log('You must set a scene using the convergame.changeScene method.');
       return false;
     }
@@ -55,7 +55,7 @@ function Convergame(canvas) {
   };
 
   this.startMainGameLoop = function() {
-    if (!this.sanityCheck()) return;
+    if (!this.sanityCheck()) {return;}
 
     this.then = Date.now();
     this.mainGameLoop();
@@ -115,7 +115,7 @@ function Convergame(canvas) {
 
   this.isControlPressed = function(controlName)
   {
-    if (typeof this.controlsMap[controlName] == 'undefined')
+    if (typeof this.controlsMap[controlName] === 'undefined')
     {
       return false;
     }
@@ -125,7 +125,7 @@ function Convergame(canvas) {
 
   this.drawImage = function(imagePath, x, y, imgWidth, imgHeight)
   {
-    if (typeof this.loadedImages[imagePath] != 'undefined')
+    if (typeof this.loadedImages[imagePath] !== 'undefined')
     {
       this.ctx.drawImage(this.loadedImages[imagePath], x * this.getXScale(), y * this.getYScale(), imgWidth * this.getXScale() , imgHeight * this.getYScale());
     }
@@ -272,11 +272,11 @@ function Convergame(canvas) {
   };
 
   this.getXScale = function() {
-    return (convergame.getCanvasWidth()/1920);
+    return (this.getCanvasWidth()/1920);
   };
 
   this.getYScale = function() {
-    return (convergame.getCanvasHeight()/1080);
+    return (this.getCanvasHeight()/1080);
   };
 
   this.random = function(bottom, top) {
@@ -304,18 +304,16 @@ function Convergame(canvas) {
   };
 
   this.preShake = function() {
-    ctx.save();
-    var dx = Math.random()*8;
-    var dy = Math.random()*8;
-    ctx.translate(dx, dy);
+    this.ctx.save();
+    var dx = Math.random()*8, dy = Math.random()*8;
+    this.ctx.translate(dx, dy);
   };
 
   this.postShake = function() {
-    ctx.restore();
+    this.ctx.restore();
   };
   
   this.addPersistentScene = function(sceneObject) {
-    
     // Run scene initialisation
     sceneObject.init(this);
     
