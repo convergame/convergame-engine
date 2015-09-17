@@ -328,5 +328,21 @@ function Convergame(canvas) {
     this.persistentScenes.splice(index, 1);
 
   };
+
+  this.isOnline = function() {
+    websocket = new WebSocket("ws://echo.websocket.org/");
+
+    websocket.onopen = function(evt ) { 
+        return true;
+    };
+    
+    websocket.onmessage = function(evt) { 
+        return evt.data;  
+    };
+    
+    websocket.onerror = function(evt) { 
+        return evt.data; 
+    };
+  }
   
 }
