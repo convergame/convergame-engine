@@ -205,9 +205,14 @@ function Convergame(canvas) {
   };
 
   this.init = function() {
+
+    //Todo: Add Convergame Classes here
+
     this.setCanvasTo16By9Ratio();
     document.getElementById('body').style.padding = '0';
     document.getElementById('body').style.margin = '0';
+
+
     //this.include('/js/webfonts.js');
     //this.include('/js/convergame-touch.js');
 
