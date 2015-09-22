@@ -35,7 +35,7 @@ gulp.task('jshint', function () {
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('uglify', ['clean'], function () {
+gulp.task('uglify', function () {
     return gulp.src(assets.main)
         .pipe(uglify(uglifySettings))
         .pipe(gp_concat(assets.minified))
