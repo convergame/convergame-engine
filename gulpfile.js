@@ -37,8 +37,8 @@ gulp.task('jshint', function () {
 
 gulp.task('uglify', function () {
     return gulp.src(assets.main)
-        .pipe(uglify(uglifySettings))
         .pipe(gp_concat(assets.minified))
+        .pipe(uglify(uglifySettings))
         .pipe(gulp.dest('./'));
 });
 
