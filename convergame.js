@@ -5,7 +5,9 @@ function Convergame(canvas) {
   this.ctx = this.canvas.getContext("2d");
 
   var hasGP = false, repGP, axes;
-
+   this.draw = null;
+   this.input = null;
+   this.scene = null;
   this.scene = null;
   
   this.persistentScenes = [];
@@ -123,70 +125,7 @@ function Convergame(canvas) {
     return this.controlsMap[controlName];
   };
 
-  this.drawImage = function(imagePath, x, y, imgWidth, imgHeight)
-  {
-    if (typeof this.loadedImages[imagePath] !== 'undefined')
-    {
-      this.ctx.drawImage(this.loadedImages[imagePath], x * this.getXScale(), y * this.getYScale(), imgWidth * this.getXScale() , imgHeight * this.getYScale());
-    }
-    else
-    {
-      var img = new Image();
-      var _this = this;
-
-      img.onload = function () {
-        _this.loadedImages[imagePath] = img;
-      };
-
-      img.src = imagePath;
-    }
-  };
-
-  this.drawCircle = function(centreX, centreY, radius, style)
-  {
-    this.ctx.strokeStyle = style;
-    this.ctx.beginPath();
-    this.ctx.arc(centreX * this.getXScale(), centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
-    this.ctx.stroke();
-  };
-
-  this.drawFilledCircle = function(centreX, centreY, radius, strokeStyle, fillStyle)
-  {
-    this.ctx.strokeStyle = strokeStyle;
-    this.ctx.fillStyle = fillStyle;
-    this.ctx.beginPath();
-    this.ctx.arc(centreX * this.getXScale(), centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
-    this.ctx.stroke();
-    this.ctx.fill();
-  };
-
-  this.drawRect = function(x, y, width, height, style)
-  {
-    this.ctx.strokeStyle = style;
-    this.ctx.strokeRect(x*this.getXScale(), y * this.getYScale(), width*this.getXScale(), height*this.getYScale());
-  };
-
-  this.drawFilledRect = function(x, y, width, height, strokeStyle, fillStyle)
-  {
-    this.ctx.strokeStyle = strokeStyle;
-    this.ctx.fillStyle = fillStyle;
-    this.ctx.fillRect(x*this.getXScale(), y * this.getYScale(), width*this.getXScale(), height*this.getYScale());
-  };
-
-  this.drawText = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
-  {
-    shadow = typeof shadow !== 'undefined' ? shadow : false;
-    this.ctx.font = fontSize * this.getXScale() + "px " + font;
-    this.ctx.textAlign = align;
-
-    if(shadow === true) {
-      this.ctx.fillStyle = shadowCol;
-      this.ctx.fillText(text, (x + shadowOffsetX) * this.getXScale(), (y + shadowOffsetY) * this.getYScale());
-    }
-
-    this.ctx.fillStyle = style;
-    this.ctx.fillText(text, x * this.getXScale(), y * this.getYScale());
-  };
+  
 
   this.getTextWidth = function(string) {
     var text = this.ctx.measureText(string);
@@ -205,9 +144,9 @@ function Convergame(canvas) {
   };
 
   this.init = function() {
-
-    //Todo: Add Convergame Classes here
-
+    this.draw = new ConvergameDraw();
+    this.input = new ConvergameInput();
+    this.scene = new ConvergameScene();
     this.setCanvasTo16By9Ratio();
     document.getElementById('body').style.padding = '0';
     document.getElementById('body').style.margin = '0';

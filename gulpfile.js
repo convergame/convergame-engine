@@ -3,8 +3,7 @@ var gulp = require('gulp'),
 jshint = require('gulp-jshint'),
 rename = require('gulp-rename'),
 uglify = require('gulp-uglify'),
-gp_concat = require('gulp-concat'),
-del = require('del');
+gp_concat = require('gulp-concat');
 
 /* SETTINGS */
 var uglifySettings = {
@@ -25,9 +24,6 @@ var assets = {
 };
 
 /* GULP TASKS */
-gulp.task('clean', function (cb) {
-    del([assets.minified], cb);
-});
 
 gulp.task('jshint', function () {
     return gulp.src(assets.main)
@@ -38,7 +34,7 @@ gulp.task('jshint', function () {
 gulp.task('uglify', function () {
     return gulp.src(assets.main)
         .pipe(gp_concat(assets.minified))
-        .pipe(uglify(uglifySettings))
+        //.pipe(uglify(uglifySettings))
         .pipe(gulp.dest('./'));
 });
 
