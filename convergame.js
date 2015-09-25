@@ -14,8 +14,6 @@ function Convergame(canvas) {
 
   this.controlsMap = {};
 
-  this.loadedImages = {};
-
   this.then = null;
 
   this.sanityCheck = function() {
@@ -63,25 +61,6 @@ function Convergame(canvas) {
     this.mainGameLoop();
   };
 
-  this.getCanvasWidth = function() {
-    return canvas.width;
-  };
-
-  this.getCanvasHeight = function() {
-    return canvas.height;
-  };
-
-  this.setCanvasTo16By9Ratio = function() {
-    canvas.width = window.innerWidth;
-    canvas.height = canvas.width*0.5625;
-
-    while (canvas.width>=window.innerWidth || canvas.height>=window.innerHeight)
-    {
-      canvas.width -= 1;
-      canvas.height -= 1;
-    }
-  };
-
   this.getControlNameFromKeyCode = function(keyCode)
   {
     var control = null;
@@ -125,38 +104,16 @@ function Convergame(canvas) {
     return this.controlsMap[controlName];
   };
 
-  
-
-  this.getTextWidth = function(string) {
-    var text = this.ctx.measureText(string);
-    return text.width;
-  };
-
-  this.getTextHeight = function(string) {
-    var text = this.ctx.measureText(string);
-    return text.height;
-  };
-
-  this.blankCanvas = function(style)
-  {
-    this.ctx.fillStyle = style;
-    this.ctx.fillRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight());
-  };
-
   this.init = function() {
     this.draw = new ConvergameDraw();
     this.input = new ConvergameInput();
     this.scene = new ConvergameScene();
-    this.setCanvasTo16By9Ratio();
+    this.draw.setCanvasTo16By9Ratio(); //Todo: Add the option between 16:9, 16.10 or 4:3 (Game manifest file?)
     document.getElementById('body').style.padding = '0';
     document.getElementById('body').style.margin = '0';
 
-
-    //this.include('/js/webfonts.js');
-    //this.include('/js/convergame-touch.js');
-
     window.addEventListener("resize", function(e) {
-      this.setCanvasTo16By9Ratio();
+      this.draw.setCanvasTo16By9Ratio();
     }.bind(this));
 
     window.addEventListener("keydown", function(e) {
@@ -203,26 +160,6 @@ function Convergame(canvas) {
     }
   };
 
-  this.setPixelGame = function(active) {
-    if (active) {
-      this.ctx.webkitImageSmoothingEnabled = false;
-      this.ctx.mozImageSmoothingEnabled = false;
-      this.ctx.imageSmoothingEnabled = false;
-    } else {
-      this.ctx.webkitImageSmoothingEnabled = true;
-      this.ctx.mozImageSmoothingEnabled = true;
-      this.ctx.imageSmoothingEnabled = true;
-    }
-  };
-
-  this.getXScale = function() {
-    return (this.getCanvasWidth()/1920);
-  };
-
-  this.getYScale = function() {
-    return (this.getCanvasHeight()/1080);
-  };
-
   this.random = function(bottom, top) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
   };
@@ -245,16 +182,6 @@ function Convergame(canvas) {
 
     // Run scene initialisation
     this.scene.init(this);
-  };
-
-  this.preShake = function() {
-    this.ctx.save();
-    var dx = Math.random()*8, dy = Math.random()*8;
-    this.ctx.translate(dx, dy);
-  };
-
-  this.postShake = function() {
-    this.ctx.restore();
   };
   
   this.addPersistentScene = function(sceneObject) {
