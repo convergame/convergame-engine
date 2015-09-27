@@ -1,4 +1,3 @@
-
 function ConvergameCollision() {
 	this.convergame = null;
 	

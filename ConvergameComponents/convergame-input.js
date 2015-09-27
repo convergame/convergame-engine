@@ -1,6 +1,4 @@
-
 function ConvergameInput() {
-    
   this.convergame = null;
   
   this.init = function(convergame)

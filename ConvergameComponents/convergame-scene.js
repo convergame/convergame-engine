@@ -1,4 +1,3 @@
-
 function ConvergameScene() {
 	this.convergame = null;
 	this.currentScene = null;
@@ -10,7 +9,7 @@ function ConvergameScene() {
         this.convergame = convergame;
     };
   	
-  	this.sanityCheck = function() {
+  	this.sceneCheck = function() {
       if (typeof this.currentScene !== 'object') {
         console.log('You must set a scene using the convergame.scene.changeScene method.');
         return false;
@@ -21,7 +20,6 @@ function ConvergameScene() {
 	this.changeScene = function(scene) {
 	    // Ensuring control presses do not carry over to next scene
 	    this.convergame.input.controlsMap = {};
-
 	    // Switch scene
 	    this.currentScene = scene;
 	    // Run scene initialisation

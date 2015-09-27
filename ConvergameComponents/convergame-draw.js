@@ -1,4 +1,3 @@
-
 function ConvergameDraw() {
   this.convergame = null;
   

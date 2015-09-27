@@ -39,7 +39,7 @@ function Convergame(canvas) {
   };
 
   this.startMainGameLoop = function() {
-    if (!this.scene.sanityCheck()) {return;}
+    if (!this.scene.sceneCheck()) {return;}
 
     this.then = Date.now();
     this.mainGameLoop();
