@@ -20,7 +20,7 @@ function Convergame(canvas) {
     for (var i = 0; i < this.scene.persistentScenes.length; i++) {
       this.scene.persistentScenes[i].updateFunction(time);
     }
-
+    console.log('currentScene: ' + this.scene.currentScene);
     // 2. Run updateFunction main scene
     this.scene.currentScene.updateFunction(time);
     

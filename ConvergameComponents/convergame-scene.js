@@ -24,7 +24,6 @@ function ConvergameScene() {
 
 	    // Switch scene
 	    this.currentScene = scene;
-	    
 	    // Run scene initialisation
 	    this.convergame.scene.currentScene.init(this.convergame);
 	  };
