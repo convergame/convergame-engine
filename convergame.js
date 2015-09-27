@@ -16,19 +16,19 @@ function Convergame(canvas) {
     delta = now - this.then,
     time = delta / 1000;
 
-    // 1. Run updateFunction for all persistentScenes (allows main scene to reference data set in persistentScenes)
+    // 1. Run update for all persistentScenes (allows main scene to reference data set in persistentScenes)
     for (var i = 0; i < this.scene.persistentScenes.length; i++) {
-      this.scene.persistentScenes[i].updateFunction(time);
+      this.scene.persistentScenes[i].update(time);
     }
-    // 2. Run updateFunction main scene
-    this.scene.currentScene.updateFunction(time);
+    // 2. Run update main scene
+    this.scene.currentScene.update(time);
     
-    // 3. Run renderFunction main scene (appears below persistentScenes rendering)
-    this.scene.currentScene.renderFunction();
+    // 3. Run render main scene (appears below persistentScenes rendering)
+    this.scene.currentScene.render();
     
-    // 4. Run renderFunction for all persistentScenes (appears above main scene rendering)
+    // 4. Run render for all persistentScenes (appears above main scene rendering)
     for (i = 0; i < this.scene.persistentScenes.length; i++) {
-      this.scene.persistentScenes[i].renderFunction();
+      this.scene.persistentScenes[i].render();
     }
 
     this.then = now;

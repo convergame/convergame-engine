@@ -9,7 +9,7 @@ function BasicGameControllers()
     
     this.axisThreshold = 0.20;
     
-    this.updateFunction = function(time)
+    this.update = function(time)
     {
         if (!this.checkGameControllerSupport)
         {
@@ -20,13 +20,13 @@ function BasicGameControllers()
         
     };
     
-    this.renderFunction = function()
+    this.render = function()
     {
         if (this.debug)
         {
             var i, j;
             
-            this.convergame.drawText(20, 40, "#ffffff", 16, "sans-serif", "left", "Number of game controllers: "+this.gameControllers.length, true, 2, 2, "#000000");
+            this.convergame.text(20, 40, "#ffffff", 16, "sans-serif", "left", "Number of game controllers: "+this.gameControllers.length, true, 2, 2, "#000000");
         
             for (i = 0; i < this.gameControllers.length; i++) 
             {
@@ -42,7 +42,7 @@ function BasicGameControllers()
                     controllerDebugText += "A"+j+": "+(Math.floor(this.gameControllers[i].axes[j]*100)/100)+", ";
                 }
                 
-                this.convergame.drawText(20, 40+((i+1)*25), "#ffffff", 16, "sans-serif", "left", controllerDebugText, true, 2, 2, "#000000");
+                this.convergame.text(20, 40+((i+1)*25), "#ffffff", 16, "sans-serif", "left", controllerDebugText, true, 2, 2, "#000000");
             }
         }
     };

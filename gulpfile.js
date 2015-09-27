@@ -19,7 +19,7 @@ var uglifySettings = {
 
 /*ASSETS*/
 var assets = {
-    main:['convergame.js', 'ConvergameComponents/*'],
+    main:['convergame.js', 'components/*'],
     minified: 'convergame.min.js'
 };
 

@@ -40,7 +40,7 @@ function ConvergameInput() {
       return control;
   };
 
-  this.isControlPressed = function(controlName)
+  this.controlPressed = function(controlName)
   {
     if (typeof this.controlsMap[controlName] === 'undefined')
     {

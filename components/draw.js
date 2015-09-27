@@ -8,7 +8,7 @@ function ConvergameDraw() {
     this.convergame = convergame;
   };
   
-	this.drawImage = function(imagePath, x, y, imgWidth, imgHeight)
+	this.image = function(imagePath, x, y, imgWidth, imgHeight)
   	{
 	    if (typeof this.loadedImages[imagePath] !== 'undefined')
 	    {
@@ -27,7 +27,7 @@ function ConvergameDraw() {
 	    }
 	  };
 
-  this.drawCircle = function(centreX, centreY, radius, style)
+  this.circle = function(centreX, centreY, radius, style)
   {
     this.convergame.ctx.strokeStyle = style;
     this.convergame.ctx.beginPath();
@@ -35,7 +35,7 @@ function ConvergameDraw() {
     this.convergame.ctx.stroke();
   };
 
-  this.drawFilledCircle = function(centreX, centreY, radius, strokeStyle, fillStyle)
+  this.filledCircle = function(centreX, centreY, radius, strokeStyle, fillStyle)
   {
     this.convergame.ctx.strokeStyle = strokeStyle;
     this.convergame.ctx.fillStyle = fillStyle;
@@ -45,20 +45,20 @@ function ConvergameDraw() {
     this.convergame.ctx.fill();
   };
 
-  this.drawRect = function(x, y, width, height, style)
+  this.rectangle = function(x, y, width, height, style)
   {
     this.convergame.ctx.strokeStyle = style;
     this.convergame.ctx.strokeRect(x*this.getXScale(), y * this.getYScale(), width*this.getXScale(), height*this.getYScale());
   };
 
-  this.drawFilledRect = function(x, y, width, height, strokeStyle, fillStyle)
+  this.filledRectangle = function(x, y, width, height, strokeStyle, fillStyle)
   {
     this.convergame.ctx.strokeStyle = strokeStyle;
     this.convergame.ctx.fillStyle = fillStyle;
     this.convergame.ctx.fillRect(x*this.getXScale(), y * this.getYScale(), width*this.getXScale(), height*this.getYScale());
   };
 
-  this.drawText = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
+  this.text = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
   {
     shadow = typeof shadow !== 'undefined' ? shadow : false;
     this.convergame.ctx.font = fontSize * this.getXScale() + "px " + font;
