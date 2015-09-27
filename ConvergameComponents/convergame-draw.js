@@ -1,8 +1,14 @@
-var ConvergameDraw = ConvergameDraw || {};
 
 function ConvergameDraw() {
-  this.convergame = convergame;
+  this.convergame = null;
+  
   this.loadedImages = {};
+  
+  this.init = function(convergame)
+  {
+    this.convergame = convergame;
+  };
+  
 	this.drawImage = function(imagePath, x, y, imgWidth, imgHeight)
   	{
 	    if (typeof this.loadedImages[imagePath] !== 'undefined')

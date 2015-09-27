@@ -1,6 +1,13 @@
-var ConvergameInput = ConvergameInput || {};
+
 function ConvergameInput() {
-  this.convergame = convergame;
+    
+  this.convergame = null;
+  
+  this.init = function(convergame)
+  {
+    this.convergame = convergame;
+  };
+  
   this.controlsMap = {};
   this.getControlNameFromKeyCode = function(keyCode)
   {

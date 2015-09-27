@@ -1,9 +1,14 @@
-var ConvergameScene = ConvergameScene || {};
+
 function ConvergameScene() {
-	this.convergame = convergame;
+	this.convergame = null;
 	this.currentScene = null;
 	this.persistentScenes = [];
 	this.controlsMap = {};
+  	
+  	this.init = function(convergame)
+    {
+        this.convergame = convergame;
+    };
   	
   	this.sanityCheck = function() {
       if (typeof this.currentScene !== 'object') {
@@ -19,9 +24,9 @@ function ConvergameScene() {
 
 	    // Switch scene
 	    this.currentScene = scene;
-	    console.log('Scene ' + JSON.stringify(scene));
+	    
 	    // Run scene initialisation
-	    this.convergame.init(this);
+	    this.convergame.scene.currentScene.init(this.convergame);
 	  };
 	  
 	  this.addPersistentScene = function(sceneObject) {
