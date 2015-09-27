@@ -1,9 +1,11 @@
-var gulp = require('gulp');
-var jshint = require('gulp-jshint');
-var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
-var del = require('del');
+/* REQUIREMENTS */
+var gulp = require('gulp'),
+jshint = require('gulp-jshint'),
+rename = require('gulp-rename'),
+uglify = require('gulp-uglify'),
+gp_concat = require('gulp-concat');
 
+/* SETTINGS */
 var uglifySettings = {
     compress: {
         comparisons: true,
@@ -15,30 +17,29 @@ var uglifySettings = {
     }
 };
 
+/*ASSETS*/
 var assets = {
-    main: 'convergame.js',
+    main:['convergame.js', 'ConvergameComponents/*'],
     minified: 'convergame.min.js'
 };
 
-gulp.task('clean', function (cb) {
-    del([assets.minified], cb);
-});
+/* GULP TASKS */
 
 gulp.task('jshint', function () {
-    return gulp.src('./' + assets.main)
+    return gulp.src(assets.main)
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('uglify', ['clean'], function () {
-    return gulp.src('./' + assets.main)
-        .pipe(uglify(uglifySettings))
-        .pipe(rename(assets.minified))
+gulp.task('uglify', function () {
+    return gulp.src(assets.main)
+        .pipe(gp_concat(assets.minified))
+        //.pipe(uglify(uglifySettings))
         .pipe(gulp.dest('./'));
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./' + assets.main, ['jshint', 'uglify']);
+    gulp.watch(assets.main, ['jshint', 'uglify']);
 });
 
 gulp.task('default', ['jshint', 'uglify']);

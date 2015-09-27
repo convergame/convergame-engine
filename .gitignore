@@ -1,0 +1,6 @@
+# Minififed files
+*.min.js
+
+# Node
+node_modules
+
