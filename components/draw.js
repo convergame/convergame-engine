@@ -12,7 +12,7 @@ function ConvergameDraw() {
   	{
 	    if (typeof this.loadedImages[imagePath] !== 'undefined')
 	    {
-	      this.convergame.ctx.drawImage(this.loadedImages[imagePath], x * this.getXScale(), y * this.getYScale(), imgWidth * this.getXScale() , imgHeight * this.getYScale());
+	      this.convergame.ctx.drawImage(this.loadedImages[imagePath], parseInt(x * this.getXScale()), parseInt(y * this.getYScale()), parseInt(imgWidth * this.getXScale()), parseInt(imgHeight * this.getYScale()));
 	    }
 	    else
 	    {
@@ -31,7 +31,7 @@ function ConvergameDraw() {
   {
     this.convergame.ctx.strokeStyle = style;
     this.convergame.ctx.beginPath();
-    this.convergame.ctx.arc(centreX * this.getXScale(), centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
+    this.convergame.ctx.arc(parseInt(centreX * this.getXScale()), parseInt(centreY * this.getYScale()), parseInt(radius * this.getXScale()), 0, 2*Math.PI);
     this.convergame.ctx.stroke();
   };
 
@@ -40,7 +40,7 @@ function ConvergameDraw() {
     this.convergame.ctx.strokeStyle = strokeStyle;
     this.convergame.ctx.fillStyle = fillStyle;
     this.convergame.ctx.beginPath();
-    this.convergame.ctx.arc(centreX * this.getXScale(), centreY * this.getYScale(), radius * this.getXScale(), 0, 2*Math.PI);
+    this.convergame.ctx.arc(parseInt(centreX * this.getXScale()), parseInt(centreY * this.getYScale()), parseInt(radius * this.getXScale()), 0, 2*Math.PI);
     this.convergame.ctx.stroke();
     this.convergame.ctx.fill();
   };
@@ -48,29 +48,29 @@ function ConvergameDraw() {
   this.rectangle = function(x, y, width, height, style)
   {
     this.convergame.ctx.strokeStyle = style;
-    this.convergame.ctx.strokeRect(x*this.getXScale(), y * this.getYScale(), width*this.getXScale(), height*this.getYScale());
+    this.convergame.ctx.strokeRect(parseInt(x*this.getXScale()), parseInt(y * this.getYScale()), parseInt(width*this.getXScale()), parseInt(height*this.getYScale()));
   };
 
   this.filledRectangle = function(x, y, width, height, strokeStyle, fillStyle)
   {
     this.convergame.ctx.strokeStyle = strokeStyle;
     this.convergame.ctx.fillStyle = fillStyle;
-    this.convergame.ctx.fillRect(x*this.getXScale(), y * this.getYScale(), width*this.getXScale(), height*this.getYScale());
+    this.convergame.ctx.fillRect(parseInt(x*this.getXScale()), parseInt(y * this.getYScale()), parseInt(width*this.getXScale()), parseInt(height*this.getYScale()));
   };
 
   this.text = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
   {
     shadow = typeof shadow !== 'undefined' ? shadow : false;
-    this.convergame.ctx.font = fontSize * this.getXScale() + "px " + font;
+    this.convergame.ctx.font = parseInt(fontSize * this.getXScale()) + "px " + font;
     this.convergame.ctx.textAlign = align;
 
     if(shadow === true) {
       this.convergame.ctx.fillStyle = shadowCol;
-      this.convergame.ctx.fillText(text, (x + shadowOffsetX) * this.getXScale(), (y + shadowOffsetY) * this.getYScale());
+      this.convergame.ctx.fillText(text, parseInt((x + shadowOffsetX) * this.getXScale()), parseInt((y + shadowOffsetY) * this.getYScale()));
     }
 
     this.convergame.ctx.fillStyle = style;
-    this.convergame.ctx.fillText(text, x * this.getXScale(), y * this.getYScale());
+    this.convergame.ctx.fillText(text, parseInt(x * this.getXScale()), parseInt(y * this.getYScale()));
   };
 
   this.getCanvasWidth = function() {
@@ -105,7 +105,7 @@ function ConvergameDraw() {
   this.blankCanvas = function(style)
   {
     this.convergame.ctx.fillStyle = style;
-    this.convergame.ctx.fillRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight());
+    this.convergame.ctx.fillRect(0, 0, parseInt(this.getCanvasWidth()), parseInt(this.getCanvasHeight()));
   };
 
   this.setPixelGame = function(active) {
