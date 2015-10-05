@@ -52,5 +52,21 @@ function MouseControl()
     this.init = function(convergame)
     {
         this.convergame = convergame;
+        
+        this.convergame.canvas.addEventListener('mousemove', function(evt) {
+            var rect = canvas.getBoundingClientRect();
+            this.mouseX = evt.clientX - rect.left;
+            this.mouseY = evt.clientY - rect.top;
+        });
+        
+        this.convergame.canvas.addEventListener('mousedown', function(evt) {
+            if (event.button===0) this.leftButtonPressed = true;
+            else if (event.button===2) this.rightButtonPressed = true;
+        });
+        
+        this.convergame.canvas.addEventListener('mouseup', function(evt) {
+            if (event.button===0) this.leftButtonPressed = false;
+            else if (event.button===2) this.rightButtonPressed = false;
+        });
     };
 }
