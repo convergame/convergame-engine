@@ -3,6 +3,8 @@ function MouseControl()
 {	
     this.convergame = null;
     
+    this.debug = false;
+    
     this.mouseX = 0;
     this.mouseY = 0;
     
@@ -16,27 +18,35 @@ function MouseControl()
     
     this.render = function()
     {
-		
+		if (this.debug)
+        {
+            var debugText = "X: "+this.getX()+", Y: "+this.getY()+", ";
+            
+            debugText += "Left pressed: "+this.isLeftButtonPressed()+", ";
+            debugText += "Right pressed: "+this.isRightButtonPressed()+", ";
+            
+            this.convergame.draw.text(20, 40, "#ffffff", 20, "sans-serif", "left", debugText, true, 2, 2, "#000000");
+        }
     };
     
     this.getX = function()
     {
-        return this.mouseX * this.convergame.draw.getXScale();
+        return (this.mouseX / (this.convergame.draw.getXScale())).toFixed(2);
     };
     
     this.getY = function()
     {
-        return this.mouseY * this.convergame.draw.getYScale();
+        return (this.mouseY / this.convergame.draw.getYScale()).toFixed(2);
     };
     
     this.getXUnscaled = function()
     {
-        return this.mouseX;
+        return (this.mouseX).toFixed(2);
     };
     
     this.getYUnscaled = function()
     {
-        return this.mouseY;
+        return (this.mouseY).toFixed(2);
     };
     
     this.isLeftButtonPressed = function()
@@ -49,24 +59,31 @@ function MouseControl()
         return this.rightButtonPressed;  
     };
     
+    this.setDebug = function(debug)
+    {
+        this.debug = debug;
+    };
+    
     this.init = function(convergame)
     {
         this.convergame = convergame;
         
-        this.convergame.canvas.addEventListener('mousemove', function(evt) {
+        var _this = this;
+        
+        this.convergame.canvas.addEventListener('mousemove', function(event) {
             var rect = canvas.getBoundingClientRect();
-            this.mouseX = evt.clientX - rect.left;
-            this.mouseY = evt.clientY - rect.top;
+            _this.mouseX = event.clientX - rect.left;
+            _this.mouseY = event.clientY - rect.top;
         });
         
-        this.convergame.canvas.addEventListener('mousedown', function(evt) {
-            if (event.button===0) this.leftButtonPressed = true;
-            else if (event.button===2) this.rightButtonPressed = true;
+        this.convergame.canvas.addEventListener('mousedown', function(event) {
+            if (event.button===0) _this.leftButtonPressed = true;
+            else if (event.button===2) _this.rightButtonPressed = true;
         });
         
-        this.convergame.canvas.addEventListener('mouseup', function(evt) {
-            if (event.button===0) this.leftButtonPressed = false;
-            else if (event.button===2) this.rightButtonPressed = false;
+        this.convergame.canvas.addEventListener('mouseup', function(event) {
+            if (event.button===0) _this.leftButtonPressed = false;
+            else if (event.button===2) _this.rightButtonPressed = false;
         });
     };
 }
