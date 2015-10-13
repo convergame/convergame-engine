@@ -28,7 +28,7 @@ function ConvergameScene() {
 	  
 	  this.addPersistentScene = function(sceneObject) {
 	    // Run scene initialisation
-	    sceneObject.init(this);
+	    sceneObject.init(this.convergame);
 	    
 	    // Add scene to persistentScenes array
 	    this.persistentScenes.push(sceneObject);
