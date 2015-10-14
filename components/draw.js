@@ -56,7 +56,6 @@ function ConvergameDraw() {
   this.rectangle = function(x, y, width, height, strokeStyle, fillStyle)
   {
     if(typeof(fillStyle) != 'undefined') {
-      console.log(fillStyle);
       this.convergame.ctx.fillStyle = fillStyle;
       this.convergame.ctx.fillRect(parseInt(x*this.getXScale()), parseInt(y * this.getYScale()), parseInt(width*this.getXScale()), parseInt(height*this.getYScale()));
     } else {
