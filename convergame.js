@@ -63,6 +63,9 @@ function Convergame(canvas) {
     document.getElementsByTagName('body')[0].style.padding = '0';
     document.getElementsByTagName('body')[0].style.margin = '0';
 
+    //Disable right click / context menu
+    document.oncontextmenu = function() { return false; }
+
     window.addEventListener("resize", function(e) {
       this.draw.setCanvasTo16By9Ratio();
     }.bind(this));
