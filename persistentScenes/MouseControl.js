@@ -59,6 +59,12 @@ function MouseControl()
         return this.rightButtonPressed;  
     };
     
+    this.resetButtonState = function()
+    {
+        this.leftButtonPressed = false;
+        this.rightButtonPressed = false;
+    };
+    
     this.setDebug = function(debug)
     {
         this.debug = debug;
