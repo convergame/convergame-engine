@@ -61,6 +61,17 @@ function ConvergameInputMouse() {
         return this.rightButtonPressed;  
     };
     
+    this.isPointerWithinRect = function(x, y, width, height)
+    {
+        if (this.getX() > x && this.getX() < x + width &&
+            this.getY() > y && this.getY() < y + height)
+        {
+            return true;
+        }
+        
+        return false;
+    };
+    
     this.resetButtonState = function()
     {
         this.leftButtonPressed = false;
