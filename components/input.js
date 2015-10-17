@@ -1,9 +1,15 @@
 function ConvergameInput() {
+    
   this.convergame = null;
+  
+  this.mouse = null;
   
   this.init = function(convergame)
   {
     this.convergame = convergame;
+    
+    this.mouse = new ConvergameInputMouse();
+    this.mouse.init(this.convergame);
   };
   
   this.controlsMap = {};
