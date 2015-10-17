@@ -31,12 +31,21 @@ gulp.task('jshint', function () {
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('uglify', function () {
+gulp.task('build-dev', ['jshint'], function () {
     return gulp.src(assets.main)
         .pipe(gp_concat(assets.minified))
-        //.pipe(uglify(uglifySettings))
         .pipe(gulp.dest('./'));
 });
+
+gulp.task('build', ['jshint'], function () {
+    return gulp.src(assets.main)
+        .pipe(gp_concat(assets.minified))
+        .pipe(uglify(uglifySettings))
+        .pipe(gulp.dest('./'));
+});
+
+//Old alias
+gulp.task('uglify', ['build-dev']);
 
 gulp.task('watch', function () {
     gulp.watch(assets.main, ['jshint', 'uglify']);
