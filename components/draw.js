@@ -55,13 +55,12 @@ function ConvergameDraw() {
 
   this.rectangle = function(x, y, width, height, strokeStyle, fillStyle)
   {
-    if(typeof(fillStyle) != 'undefined') {
-      this.convergame.ctx.fillStyle = fillStyle;
-      this.convergame.ctx.fillRect(parseInt(x*this.getXScale()), parseInt(y * this.getYScale()), parseInt(width*this.getXScale()), parseInt(height*this.getYScale()));
-    } else {
-      this.convergame.ctx.strokeStyle = strokeStyle;
-      this.convergame.ctx.strokeRect(parseInt(x*this.getXScale()), parseInt(y * this.getYScale()), parseInt(width*this.getXScale()), parseInt(height*this.getYScale()));
-    }
+    this.convergame.ctx.strokeStyle = strokeStyle;
+    if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fillStyle = fillStyle}
+    this.convergame.ctx.beginPath();
+    this.convergame.ctx.rect(this.prepNum(x*this.getXScale()), this.prepNum(y * this.getYScale()), this.prepNum(width*this.getXScale()), this.prepNum(height*this.getYScale()));
+    this.convergame.ctx.stroke();
+    if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fill();}
   };
   this.text = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
   {
