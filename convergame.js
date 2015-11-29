@@ -8,6 +8,7 @@ function Convergame(canvas) {
   this.input = null;
   this.scene = null;
   this.collision = null;
+  this.storage = null;
   
   this.then = null;
 
@@ -58,6 +59,9 @@ function Convergame(canvas) {
     
     this.collision = new ConvergameCollision();
     this.collision.init(this);
+    
+    this.storage = new ConvergameStorage();
+    this.storage.init(this);
     
     this.draw.setCanvasTo16By9Ratio(); //Todo: Add the option between 16:9, 16.10 or 4:3 (Game manifest file?)
     document.getElementsByTagName('body')[0].style.padding = '0';
