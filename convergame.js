@@ -45,8 +45,8 @@ function Convergame(canvas) {
     this.then = Date.now();
     this.mainGameLoop();
   };
-
-  this.init = function() {
+  
+  this.initComponents = function() {
       
     this.draw = new ConvergameDraw();
     this.draw.init(this);
@@ -62,11 +62,11 @@ function Convergame(canvas) {
     
     this.storage = new ConvergameStorage();
     this.storage.init(this);
-    
-    this.draw.setCanvasTo16By9Ratio(); //Todo: Add the option between 16:9, 16.10 or 4:3 (Game manifest file?)
-    document.getElementsByTagName('body')[0].style.padding = '0';
-    document.getElementsByTagName('body')[0].style.margin = '0';
-
+      
+  };
+  
+  this.initEventListeners = function() {
+      
     //Disable right click / context menu
     document.oncontextmenu = function() { return false; }
 
@@ -104,6 +104,21 @@ function Convergame(canvas) {
       else if (e && e.stopPropagation) { e.stopPropagation(); }
       return false;
     };
+      
+  };
+
+  this.init = function() {
+    
+    this.initComponents();
+    
+    this.initEventListeners();
+    
+    this.draw.setCanvasTo16By9Ratio(); //Todo: Add the option between 16:9, 16.10 or 4:3 (Game manifest file?)
+    
+    document.getElementsByTagName('body')[0].style.padding = '0';
+    document.getElementsByTagName('body')[0].style.margin = '0';
+
+    
   };
   /* Workaround for activating fullscreen API via canvas? 
   this.fullscreen = function() {
