@@ -91,19 +91,15 @@ function Convergame(canvas) {
       this.input.controlsMap[control] = false;
     }.bind(this));
 
-    this.canvas.ondragstart = function(e)
+    var stopPropagation = function(e)
     {
       if (e && e.preventDefault) { e.preventDefault(); }
       else if (e && e.stopPropagation) { e.stopPropagation(); }
       return false;
     };
 
-    this.canvas.onselectstart = function(e)
-    {
-      if (e && e.preventDefault) { e.preventDefault(); }
-      else if (e && e.stopPropagation) { e.stopPropagation(); }
-      return false;
-    };
+    this.canvas.ondragstart = stopPropagation;
+    this.canvas.onselectstart = stopPropagation;
       
   };
 
