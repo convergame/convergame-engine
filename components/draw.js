@@ -113,15 +113,9 @@ function ConvergameDraw() {
   };
 
   this.setPixelGame = function(active) {
-    if (active) {
-      this.convergame.ctx.webkitImageSmoothingEnabled = false;
-      this.convergame.ctx.mozImageSmoothingEnabled = false;
-      this.convergame.ctx.imageSmoothingEnabled = false;
-    } else {
-      this.convergame.ctx.webkitImageSmoothingEnabled = true;
-      this.convergame.ctx.mozImageSmoothingEnabled = true;
-      this.convergame.ctx.imageSmoothingEnabled = true;
-    }
+      this.convergame.ctx.webkitImageSmoothingEnabled = !active;
+      this.convergame.ctx.mozImageSmoothingEnabled = !active;
+      this.convergame.ctx.imageSmoothingEnabled = !active;
   };
 
   this.getXScale = function() {
