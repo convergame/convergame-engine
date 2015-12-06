@@ -5,6 +5,10 @@ The Convergame engine is a HTML5 game engine combining web development concepts 
 
 **Please note: THIS PROJECT IS EARLY IN ITS LIFE CYCLE. THE CODE CAN CHANGE DRASTICALLY AT ANY TIME. DO NOT USE THIS FOR COMMERCIAL GAMES UNTIL A STABLE RELEASE IS READY. USE AT YOUR OWN RISK!**
 
+## Documentation
+
+If you're looking to use the Convergame Engine for your next game project, please review our ongoing documentation efforts at: https://convergame.readme.io/docs
+
 ## Requirements & Installation
 ### Gulp
 `npm install --save-dev gulp gulp-jshint gulp-rename gulp-uglify gulp-concat del jshint-stylish`
