@@ -55,19 +55,27 @@ function ConvergameDraw() {
 
   this.line = function(x1, y1, x2, y2, strokeStyle, lineWidth)
   {
+    x1 *= this.getXScale();
+    x2 *= this.getXScale();
+    y1 *= this.getYScale();
+    y2 *= this.getYScale();
+
     this.convergame.ctx.strokeStyle = strokeStyle;
     this.convergame.ctx.beginPath();
     this.convergame.ctx.moveTo(x1, y1);
     this.convergame.ctx.lineTo(x2, y2);
 
-    var oldLineWidht = this.convergame.ctx.lineWidth;
-    if(typeof(lineWidth) != 'undefined') {
+    var oldLineWidth = this.convergame.ctx.lineWidth;
+
+    if(typeof(lineWidth) !== 'undefined') {
       this.convergame.ctx.lineWidth = lineWidth;
     } else {
       this.convergame.ctx.lineWidth = 1;
     }
 
     this.convergame.ctx.stroke();
+
+    this.convergame.ctx.lineWidth = oldLineWidth;
   };
 
   this.rectangle = function(x, y, width, height, strokeStyle, fillStyle)
