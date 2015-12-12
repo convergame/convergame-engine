@@ -2,17 +2,17 @@ function ConvergameDraw() {
   this.convergame = null;
   this.accurateMode = true;
   this.loadedImages = {};
-  
+
   this.init = function(convergame)
   {
     this.convergame = convergame;
   };
-  
+
   this.setAccurateMode = function(acurateMode)
   {
       this.accurateMode = accurateMode;
   };
-  
+
   this.prepNum = function(number)
   {
       if (this.accurateMode)
@@ -24,7 +24,7 @@ function ConvergameDraw() {
           return Math.round(number);
       }
   };
-  
+
 	this.image = function(imagePath, x, y, imgWidth, imgHeight)
   	{
 	    if (typeof this.loadedImages[imagePath] !== 'undefined')
@@ -51,6 +51,23 @@ function ConvergameDraw() {
     this.convergame.ctx.arc(this.prepNum(centreX * this.getXScale()), this.prepNum(centreY * this.getYScale()), this.prepNum(radius * this.getXScale()), 0, 2*Math.PI);
     this.convergame.ctx.stroke();
     if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fill();}
+  };
+
+  this.line = function(x1, y1, x2, y2, strokeStyle, lineWidth)
+  {
+    this.convergame.ctx.strokeStyle = strokeStyle;
+    this.convergame.ctx.beginPath();
+    this.convergame.ctx.moveTo(x1, y1);
+    this.convergame.ctx.lineTo(x2, y2);
+
+    var oldLineWidht = this.convergame.ctx.lineWidth;
+    if(typeof(lineWidth) != 'undefined') {
+      this.convergame.ctx.lineWidth = lineWidth;
+    } else {
+      this.convergame.ctx.lineWidth = 1;
+    }
+
+    this.convergame.ctx.stroke();
   };
 
   this.rectangle = function(x, y, width, height, strokeStyle, fillStyle)
