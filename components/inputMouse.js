@@ -15,7 +15,7 @@ function ConvergameInputMouse() {
         var _this = this;
 
         this.convergame.canvas.addEventListener('mousemove', function(event) {
-            var rect = canvas.getBoundingClientRect();
+            var rect = _this.convergame.canvas.getBoundingClientRect();
             _this.mouseX = event.clientX - rect.left;
             _this.mouseY = event.clientY - rect.top;
         });
