@@ -53,7 +53,7 @@ function ConvergameDraw() {
     var oldLineWidth = this.convergame.ctx.lineWidth;
 
     if(typeof(lineWidth) !== 'undefined') {
-      this.convergame.ctx.lineWidth = lineWidth;
+      this.convergame.ctx.lineWidth = this.prepNum(lineWidth * this.getXScale());
     } else {
       this.convergame.ctx.lineWidth = 1;
     }
@@ -85,7 +85,7 @@ function ConvergameDraw() {
     var oldLineWidth = this.convergame.ctx.lineWidth;
 
     if(typeof(lineWidth) !== 'undefined') {
-      this.convergame.ctx.lineWidth = lineWidth;
+      this.convergame.ctx.lineWidth = this.prepNum(lineWidth * this.getXScale());
     } else {
       this.convergame.ctx.lineWidth = 1;
     }
