@@ -43,13 +43,25 @@ function ConvergameDraw() {
 	      img.src = imagePath;
 	    }
 	  };
-  this.circle = function(centreX, centreY, radius, strokeStyle, fillStyle )
+  this.circle = function(centreX, centreY, radius, strokeStyle, fillStyle, lineWidth)
   {
     this.convergame.ctx.strokeStyle = strokeStyle;
     if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fillStyle = fillStyle}
     this.convergame.ctx.beginPath();
     this.convergame.ctx.arc(this.prepNum(centreX * this.getXScale()), this.prepNum(centreY * this.getYScale()), this.prepNum(radius * this.getXScale()), 0, 2*Math.PI);
+
+    var oldLineWidth = this.convergame.ctx.lineWidth;
+
+    if(typeof(lineWidth) !== 'undefined') {
+      this.convergame.ctx.lineWidth = lineWidth;
+    } else {
+      this.convergame.ctx.lineWidth = 1;
+    }
+
     this.convergame.ctx.stroke();
+
+    this.convergame.ctx.lineWidth = oldLineWidth;
+
     if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fill();}
   };
 
@@ -59,6 +71,11 @@ function ConvergameDraw() {
     x2 *= this.getXScale();
     y1 *= this.getYScale();
     y2 *= this.getYScale();
+
+    x1 = this.prepNum(x1);
+    x2 = this.prepNum(x2);
+    y1 = this.prepNum(y1);
+    y2 = this.prepNum(y2);
 
     this.convergame.ctx.strokeStyle = strokeStyle;
     this.convergame.ctx.beginPath();
