@@ -14,10 +14,16 @@ function ConvergameInputMouse() {
 
         var _this = this;
 
+        var setMousePosition = function (event)
+        {
+          var rect = _this.convergame.canvas.getBoundingClientRect();
+          _this.mouseX = event.clientX - rect.left;
+          _this.mouseY = event.clientY - rect.top;
+        };
+
         this.convergame.canvas.addEventListener('mousemove', function(event) {
-            var rect = _this.convergame.canvas.getBoundingClientRect();
-            _this.mouseX = event.clientX - rect.left;
-            _this.mouseY = event.clientY - rect.top;
+          setMousePosition(event);
+          event.preventDefault();
         });
 
         var setButtonPressed = function(buttonNumber, pressed)
@@ -27,11 +33,27 @@ function ConvergameInputMouse() {
         }
 
         this.convergame.canvas.addEventListener('mousedown', function(event) {
+            setMousePosition(event);
             setButtonPressed(event.button, true);
+            event.preventDefault();
+        });
+
+        this.convergame.canvas.addEventListener('touchstart', function(event) {
+            setMousePosition(event.touches[0]);
+            _this.leftButtonPressed = true;
+            event.preventDefault();
         });
 
         this.convergame.canvas.addEventListener('mouseup', function(event) {
+            setMousePosition(event);
             setButtonPressed(event.button, false);
+            event.preventDefault();
+        });
+
+        this.convergame.canvas.addEventListener('touchend', function(event) {
+            setMousePosition(event.touches[0]);
+            _this.leftButtonPressed = false;
+            event.preventDefault();
         });
     };
 
