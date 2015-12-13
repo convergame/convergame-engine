@@ -28,9 +28,9 @@ function ConvergameInputMouse() {
 
         var setButtonPressed = function(buttonNumber, pressed)
         {
-          if (event.button===0) _this.leftButtonPressed = pressed;
-          else if (event.button===2) _this.rightButtonPressed = pressed;
-        }
+          if (buttonNumber===0) _this.leftButtonPressed = pressed;
+          else if (buttonNumber===2) _this.rightButtonPressed = pressed;
+        };
 
         this.convergame.canvas.addEventListener('mousedown', function(event) {
             setMousePosition(event);
