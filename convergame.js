@@ -59,6 +59,9 @@ function Convergame(canvas) {
     
     this.collision = new ConvergameCollision();
     this.collision.init(this);
+
+    this.audio = new ConvergameAudio();
+    this.audio.init(this);
     
     this.storage = new ConvergameStorage();
     this.storage.init(this);
