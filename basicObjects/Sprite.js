@@ -7,11 +7,6 @@ function Sprite() {
 
   this.imagePath = null;
 
-  this.update = function(time)
-  {
-
-  };
-
   this.render = function()
   {
     this.convergame.draw.image(this.imagePath, this.x, this.y, this.width, this.height);
