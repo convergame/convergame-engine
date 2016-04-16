@@ -62,4 +62,10 @@ function Input() {
       document.getElementsByTagName("body")[0].appendChild(inputNode);
   };
 
+  this.focus = function()
+  {
+    var inputNode = document.getElementById(this.id);
+    inputNode.focus();
+  };
+
 }
