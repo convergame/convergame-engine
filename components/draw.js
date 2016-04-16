@@ -95,14 +95,24 @@ function ConvergameDraw() {
     this.convergame.ctx.lineWidth = oldLineWidth;
   };
 
-  this.rectangle = function(x, y, width, height, strokeStyle, fillStyle)
+  this.rectangle = function(x, y, width, height, strokeStyle, fillStyle, lineWidth)
   {
+    var oldLineWidth = this.convergame.ctx.lineWidth;
+
+    if(typeof(lineWidth) !== 'undefined') {
+      this.convergame.ctx.lineWidth = this.prepNum(lineWidth * this.getXScale());
+    } else {
+      this.convergame.ctx.lineWidth = 1;
+    }
+
     this.convergame.ctx.strokeStyle = strokeStyle;
     if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fillStyle = fillStyle}
     this.convergame.ctx.beginPath();
     this.convergame.ctx.rect(this.prepNum(x*this.getXScale()), this.prepNum(y * this.getYScale()), this.prepNum(width*this.getXScale()), this.prepNum(height*this.getYScale()));
     this.convergame.ctx.stroke();
     if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fill();}
+
+    this.convergame.ctx.lineWidth = oldLineWidth;
   };
   this.text = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
   {
