@@ -17,6 +17,8 @@ function Input() {
   this.borderColour = "#FFF";
   this.borderWidth = 1;
 
+  this.hidden = false;
+
   this.placeholder = '';
 
   this.lastValue = '';
@@ -42,6 +44,12 @@ function Input() {
     style += "border-color: "+this.borderColour+"; ";
     style += "border-width: "+borderWidth+"px; ";
     style += "padding: 0px; ";
+
+    if (this.hidden) {
+      style += "display: none; ";
+    } else {
+      style += "display: block; ";
+    }
 
     inputNode.setAttribute('style', style);
     inputNode.setAttribute('placeholder', this.placeholder);
