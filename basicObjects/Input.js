@@ -19,6 +19,8 @@ function Input() {
 
   this.placeholder = '';
 
+  this.lastValue = '';
+
   this.id = null;
 
   this.render = function()
@@ -59,6 +61,15 @@ function Input() {
       var inputNode = document.createElement("input");
       inputNode.setAttribute("id", this.id);
 
+      var _this = this;
+      inputNode.addEventListener('keypress', function(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code === 13) {
+            _this.lastValue = this.value;
+            this.value = '';
+        }
+      });
+
       document.getElementsByTagName("body")[0].appendChild(inputNode);
   };
 
@@ -66,6 +77,19 @@ function Input() {
   {
     var inputNode = document.getElementById(this.id);
     inputNode.focus();
+  };
+
+  this.getInputtedText = function()
+  {
+    var toReturn = this.lastValue;
+    this.lastValue = '';
+    return toReturn;
+  };
+
+  this.getCurrentText = function()
+  {
+    var inputNode = document.getElementById(this.id);
+    return inputNode.value;
   };
 
 }
