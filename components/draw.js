@@ -120,6 +120,8 @@ function ConvergameDraw() {
     this.convergame.ctx.font = this.prepNum(fontSize * this.getXScale()) + "px " + font;
     this.convergame.ctx.textAlign = align;
 
+    maxWidth *= this.getXScale();
+
     var lines = this.getLines(this.convergame.ctx, text, maxWidth, style);
 
     for (var i = 0; i < lines.length; i++) {
@@ -149,7 +151,7 @@ function ConvergameDraw() {
     ctx.font = textStyle;
     for (var i=1;i<wa.length;i++) {
         var w=wa[i];
-        measure=ctx.measureText(lastPhrase+splitChar+w).width;
+        measure= (ctx.measureText(lastPhrase+splitChar+w).width);
         if (measure<maxPxLength) {
             lastPhrase+=(splitChar+w);
         } else {
