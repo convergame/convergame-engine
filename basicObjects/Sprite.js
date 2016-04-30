@@ -5,6 +5,9 @@ function Sprite() {
   this.x = 0;
   this.y = 0;
 
+  this.width = 100;
+  this.height = 100;
+
   this.imagePath = null;
 
   this.render = function()
