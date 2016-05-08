@@ -12,6 +12,8 @@ function Convergame(canvas) {
 
   this.then = null;
 
+  this.handleKeyboardEvents = true;
+
   this.mainGameLoop = function() {
     var now = Date.now(),
     delta = now - this.then,
@@ -62,7 +64,7 @@ function Convergame(canvas) {
 
     this.audio = new ConvergameAudio();
     this.audio.init(this);
-    
+
     this.storage = new ConvergameStorage();
     this.storage.init(this);
 
@@ -77,22 +79,24 @@ function Convergame(canvas) {
       this.draw.setCanvasTo16By9Ratio();
     }.bind(this));
 
-    window.addEventListener("keydown", function(e) {
-      var control = this.input.getControlNameFromKeyCode(e.keyCode);
+    if (this.handleKeyboardEvents) {
+      window.addEventListener("keydown", function(e) {
+        var control = this.input.getControlNameFromKeyCode(e.keyCode);
 
-      this.input.controlsMap[control] = true;
+        this.input.controlsMap[control] = true;
 
-      // space and arrow keys
-      if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-        e.preventDefault();
-      }
-    }.bind(this));
+        // space and arrow keys
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+          e.preventDefault();
+        }
+      }.bind(this));
 
-    window.addEventListener("keyup", function(e) {
-      var control = this.input.getControlNameFromKeyCode(e.keyCode);
+      window.addEventListener("keyup", function(e) {
+        var control = this.input.getControlNameFromKeyCode(e.keyCode);
 
-      this.input.controlsMap[control] = false;
-    }.bind(this));
+        this.input.controlsMap[control] = false;
+      }.bind(this));
+    }
 
     var stopPropagation = function(e)
     {

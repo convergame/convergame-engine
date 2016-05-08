@@ -95,29 +95,76 @@ function ConvergameDraw() {
     this.convergame.ctx.lineWidth = oldLineWidth;
   };
 
-  this.rectangle = function(x, y, width, height, strokeStyle, fillStyle)
+  this.rectangle = function(x, y, width, height, strokeStyle, fillStyle, lineWidth)
   {
+    var oldLineWidth = this.convergame.ctx.lineWidth;
+
+    if(typeof(lineWidth) !== 'undefined') {
+      this.convergame.ctx.lineWidth = this.prepNum(lineWidth * this.getXScale());
+    } else {
+      this.convergame.ctx.lineWidth = 1;
+    }
+
     this.convergame.ctx.strokeStyle = strokeStyle;
     if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fillStyle = fillStyle}
     this.convergame.ctx.beginPath();
     this.convergame.ctx.rect(this.prepNum(x*this.getXScale()), this.prepNum(y * this.getYScale()), this.prepNum(width*this.getXScale()), this.prepNum(height*this.getYScale()));
     this.convergame.ctx.stroke();
     if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fill();}
+
+    this.convergame.ctx.lineWidth = oldLineWidth;
   };
-  this.text = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol)
+  this.text = function(x, y, style, fontSize, font, align, text, shadow, shadowOffsetX, shadowOffsetY, shadowCol, maxWidth, lineHeight)
   {
     shadow = typeof shadow !== 'undefined' ? shadow : false;
     this.convergame.ctx.font = this.prepNum(fontSize * this.getXScale()) + "px " + font;
     this.convergame.ctx.textAlign = align;
 
-    if(shadow === true) {
-      this.convergame.ctx.fillStyle = shadowCol;
-      this.convergame.ctx.fillText(text, this.prepNum((x + shadowOffsetX) * this.getXScale()), this.prepNum((y + shadowOffsetY) * this.getYScale()));
-    }
+    maxWidth *= this.getXScale();
 
-    this.convergame.ctx.fillStyle = style;
-    this.convergame.ctx.fillText(text, this.prepNum(x * this.getXScale()), this.prepNum(y * this.getYScale()));
+    var lines = this.getLines(this.convergame.ctx, text, maxWidth, style);
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+
+      var yOffset = lineHeight * i;
+
+      if(shadow === true) {
+        this.convergame.ctx.fillStyle = shadowCol;
+        this.convergame.ctx.fillText(line, this.prepNum((x + shadowOffsetX) * this.getXScale()), this.prepNum((y + yOffset + shadowOffsetY) * this.getYScale()));
+      }
+
+      this.convergame.ctx.fillStyle = style;
+      this.convergame.ctx.fillText(line, this.prepNum(x * this.getXScale()), this.prepNum((y + yOffset) * this.getYScale()));
+    }
   };
+
+  this.getLines = function(ctx,phrase,maxPxLength,textStyle) {
+    var wa=phrase.split(" "),
+        phraseArray=[],
+        lastPhrase=wa[0],
+        measure=0,
+        splitChar=" ";
+    if (wa.length <= 1) {
+        return wa;
+    }
+    ctx.font = textStyle;
+    for (var i=1;i<wa.length;i++) {
+        var w=wa[i];
+        measure= (ctx.measureText(lastPhrase+splitChar+w).width);
+        if (measure<maxPxLength) {
+            lastPhrase+=(splitChar+w);
+        } else {
+            phraseArray.push(lastPhrase);
+            lastPhrase=w;
+        }
+        if (i===wa.length-1) {
+            phraseArray.push(lastPhrase);
+            break;
+        }
+    }
+    return phraseArray;
+};
 
   this.getCanvasWidth = function() {
     return this.convergame.canvas.width;
