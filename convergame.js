@@ -123,19 +123,6 @@ function Convergame(canvas) {
 
 
   };
-  /* Workaround for activating fullscreen API via canvas?
-  this.fullscreen = function() {
-    if(canvas.requestFullScreen) {
-      canvas.requestFullScreen();
-    } else if(canvas.webkitRequestFullScreen) {
-      canvas.webkitRequestFullScreen();
-    } else if(canvas.mozRequestFullScreen) {
-      canvas.mozRequestFullScreen();
-    } else {
-      alert('Fullscreen not supported by your browser.');
-    }
-  };
-  */
 
   this.random = function(bottom, top) {
     return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
