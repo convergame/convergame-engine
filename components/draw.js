@@ -46,7 +46,7 @@ function ConvergameDraw() {
   this.circle = function(centreX, centreY, radius, strokeStyle, fillStyle, lineWidth)
   {
     this.convergame.ctx.strokeStyle = strokeStyle;
-    if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fillStyle = fillStyle}
+    if(typeof(fillStyle) !== 'undefined') {this.convergame.ctx.fillStyle = fillStyle}
     this.convergame.ctx.beginPath();
     this.convergame.ctx.arc(this.prepNum(centreX * this.getXScale()), this.prepNum(centreY * this.getYScale()), this.prepNum(radius * this.getXScale()), 0, 2*Math.PI);
 
@@ -62,7 +62,7 @@ function ConvergameDraw() {
 
     this.convergame.ctx.lineWidth = oldLineWidth;
 
-    if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fill();}
+    if(typeof(fillStyle) !== 'undefined') {this.convergame.ctx.fill();}
   };
 
   this.line = function(x1, y1, x2, y2, strokeStyle, lineWidth)
@@ -106,11 +106,11 @@ function ConvergameDraw() {
     }
 
     this.convergame.ctx.strokeStyle = strokeStyle;
-    if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fillStyle = fillStyle}
+    if(typeof(fillStyle) !== 'undefined') {this.convergame.ctx.fillStyle = fillStyle}
     this.convergame.ctx.beginPath();
     this.convergame.ctx.rect(this.prepNum(x*this.getXScale()), this.prepNum(y * this.getYScale()), this.prepNum(width*this.getXScale()), this.prepNum(height*this.getYScale()));
     this.convergame.ctx.stroke();
-    if(typeof(fillStyle) != 'undefined') {this.convergame.ctx.fill();}
+    if(typeof(fillStyle) !== 'undefined') {this.convergame.ctx.fill();}
 
     this.convergame.ctx.lineWidth = oldLineWidth;
   };
